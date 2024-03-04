@@ -27,6 +27,9 @@ app.use(cors());
 
 //example of a route
 // app.use("/api/blocks", blockRouter);
+app.use("/api/user", userRouter);
+app.use("/api/file", fileRouter);
+app.use("/api/folder", folderRouter);
 const port = 5000;
 
 app.listen(port, () => {
