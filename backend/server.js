@@ -38,7 +38,7 @@ app.use(xss());
 
 //example of a route
 app.use("/api/user", userRouter);
-app.use("/api/file", fileRouter);
+app.use("/api/files", fileRouter);
 app.use("/api/folder", folderRouter);
 
 //other errors if any during prod environment

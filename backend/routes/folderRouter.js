@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("./../controllers/userController");
+const folderController = require("./../controllers/folderController");
 
-router.get("/:addr", userController.getUser); //get the user by his/her addr or email
+router.get("/:addr", folderController.getFolder); //get the user by his/her addr or email
+router.post("/createFolder", folderController.createFolder);

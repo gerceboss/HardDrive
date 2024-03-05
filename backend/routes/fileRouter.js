@@ -1,5 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("./../controllers/userController");
+const fileController = require("./../controllers/fileController");
 
-router.get("/:addr", userController.getUser); //get the user by his/her addr or email
+router.get("/:addr/:filename", fileController.getFile);
