@@ -29,7 +29,6 @@ import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { AccountContext } from "../../context/context";
 import { Address, Hex } from "viem";
-import { ZERO_ADDRESS } from "@/constants/web3";
 
 interface IHomePageProps {}
 
@@ -44,21 +43,6 @@ export const getServerSideProps = (async (
     props: {},
   };
 }) satisfies GetServerSideProps<IHomePageProps>;
-
-async function getWeb3Modal() {
-  const web3Modal = new Web3Modal({
-    cacheProvider: false,
-    providerOptions: {
-      walletconnect: {
-        package: WalletConnectProvider,
-        options: {
-          infuraId: process.env.INFURA_ID,
-        },
-      },
-    },
-  });
-  return web3Modal;
-}
 
 export const HomePage = ({ children }: { children: React.ReactNode }) => {
   const [account, setAccount] = useState<Address | null>(null);
@@ -97,13 +81,22 @@ export const HomePage = ({ children }: { children: React.ReactNode }) => {
       <AppHeader title="Home" />
       <div className="header">
         {!account && (
-          <div className="accountInfo" color="white">
-            <button className="buttonStyle" onClick={connect} >
+          <div className="accountInfo">
+            <button className="buttonStyle" onClick={connect}>
               Connect
             </button>
           </div>
         )}
-        {account && <p className="accountInfo" color="#F8F9FA">{account}</p>}
+        {account && (
+          <p className="accountInfo" color="#F8F9FA">
+            {account}
+          </p>
+        )}
+      </div>
+      <div>
+        <Link href={"/drive"}>
+          <Button>open drive</Button>
+        </Link>
       </div>
       <AccountContext.Provider value={account}>
         {children}
