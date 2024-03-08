@@ -84,17 +84,17 @@ export const Navbar = () => {
           )} */}
 
           {
-            //<IconButton
-            //size="sm"
-            //aria-label="Toggle Dark/Light mode"
-            //icon={<Icon as={colorMode === "light" ? LuSun : LuMoon} />}
-            //onClick={toggleColorMode}
-            //rounded="xl"
-            ///>
+            // <IconButton
+            // size="sm"
+            // aria-label="Toggle Dark/Light mode"
+            // icon={<Icon as={colorMode === "light" ? LuSun : LuMoon} />}
+            // onClick={toggleColorMode}
+            // rounded="xl"
+            // />
           }
 
           {
-            //<w3m-button size="sm" />
+            // <w3m-button size="sm" />
           }
         </Flex>
 
@@ -111,18 +111,20 @@ const DesktopNav = () => {
   const router = useRouter();
 
   return (
-    <Stack direction={"row"} spacing={10}>
-      {MENU.map((navItem, i) => (
-        <Link
-          key={i}
-          as={LinkNext}
-          href={navItem.href}
-          fontWeight={router.pathname === navItem.href ? "bold" : "normal"}
-        >
-          {navItem.label}
-        </Link>
-      ))}
-    </Stack>
+    <>
+      <Stack direction={"row"} spacing={10}>
+        {MENU.map((navItem, i) => (
+          <Link
+            key={i}
+            as={LinkNext}
+            href={navItem.href}
+            fontWeight={router.pathname === navItem.href ? "bold" : "normal"}
+          >
+            {navItem.label}
+          </Link>
+        ))}
+      </Stack>
+    </>
   );
 };
 

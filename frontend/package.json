@@ -14,6 +14,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/inconsolata": "^5.0.15",
+    "@rainbow-me/rainbowkit": "^1.3.0",
     "@tanstack/react-query": "^4.36.1",
     "@tanstack/react-table": "^8.12.0",
     "@types/node": "20.2.3",
@@ -42,7 +43,7 @@
     "typescript": "5.0.4",
     "uniqolor": "^1.1.1",
     "viem": "^1.16.5",
-    "wagmi": "^1.4.3",
+    "wagmi": "^1.4.13",
     "web3modal": "^1.9.12",
     "zustand": "^4.4.3"
   },

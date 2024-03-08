@@ -1,4 +1,1 @@
-export {
-  HomePage as default,
-  getServerSideProps,
-} from "@/views/pages/HomePage";
+export { HomePage as default } from "@/views/pages/HomePage";

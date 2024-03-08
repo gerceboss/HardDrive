@@ -16,7 +16,6 @@ import { Section } from "@/components/common/Section";
 import _ from "lodash";
 import { DESCRIPTION } from "@/constants/info";
 import { AnimatePresence, color } from "framer-motion";
-import { chains } from "@/constants/web3";
 import Link from "next/link";
 import { MainLogo } from "@/components/common/Mainlogo";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";

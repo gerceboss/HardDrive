@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema(
     },
     files: {
       type: [mongoose.Schema.ObjectId],
+      ref: "File",
+      default: [],
+    },
+    folders: {
+      type: [mongoose.Schema.ObjectId],
+      ref: "Folder",
       default: [],
     },
   },

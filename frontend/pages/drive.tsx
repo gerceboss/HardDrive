@@ -1,1 +1,4 @@
-export { DrivePage as default } from "@/views/pages/DrivePage";
+export {
+  DrivePage as default,
+  getServerSideProps,
+} from "@/views/pages/DrivePage";

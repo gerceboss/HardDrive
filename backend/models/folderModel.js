@@ -20,6 +20,11 @@ const folderSchema = new mongoose.Schema(
       ref: "Folder",
       default: [], //this shows that it doesnt have any folders inside it
     },
+    owner: {
+      type: mongoose.Schema.ObjectId,
+      ref: "user",
+      required: [true, "cannot create folder w/o user"],
+    },
   },
   {
     toJSON: { virtuals: true },

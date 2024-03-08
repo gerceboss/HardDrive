@@ -1,11 +1,11 @@
-import { configureChains, createConfig } from 'wagmi'
+import { configureChains, createConfig } from "wagmi";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { createWeb3Modal } from "@web3modal/wagmi";
 import { DESCRIPTION, TITLE } from "./info";
 import theme from "@/themes";
 import { publicProvider } from "wagmi/providers/public";
-import {sepolia, polygonMumbai, bscTestnet } from "viem/chains";
+import { sepolia, polygonMumbai, bscTestnet } from "viem/chains";
 import { Address, Hex } from "viem";
 
 const metadata = {
