@@ -1,4 +1,4 @@
-import { TITLE } from "../constants/info";
+import { TITLE } from "../../constants/info";
 import Head from "next/head";
 
 export const AppHeader = ({
