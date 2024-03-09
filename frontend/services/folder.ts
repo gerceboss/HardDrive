@@ -4,7 +4,7 @@ import { IFile } from "@/interfaces/file";
 import { IFolder } from "@/interfaces/folder";
 
 export const getAllFolders = async (
-  address: Address
+  address: Address | null
 ): Promise<IFolder[] | null> => {
   const url = `${process.env.API_URL}/api/user/${address}/folders`;
   try {

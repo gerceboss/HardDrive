@@ -16,7 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { Address } from "viem";
 import { getAllFolders } from "@/services/folder";
-
+import { useContext } from "react";
+import { AccountContext } from "@/context/context";
 interface IFolderPageProps {
   folders: IFolder[] | null;
 }
@@ -24,8 +25,9 @@ interface IFolderPageProps {
 export const getServerSideProps = (async (
   context: GetServerSidePropsContext
 ) => {
-  const { address } = context.params as { address: Address };
-  const folders =await getAllFolders(address);
+  // const { address } = context.params as { address: Address };
+  const address: Address = useContext(AccountContext);
+  const folders = await getAllFolders(address);
   return {
     props: {
       folders,

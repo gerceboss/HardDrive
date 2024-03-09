@@ -44,7 +44,7 @@ export const getServerSideProps = (async (
 }) satisfies GetServerSideProps<IHomePageProps>;
 
 export const HomePage = ({ children }: { children: React.ReactNode }) => {
-  const [account, setAccount] = useState<Address | null>(null);
+  const [account, setAccount] = useState<Address >("0x");
 
   async function getWeb3Modal() {
     const web3Modal = new Web3Modal({
