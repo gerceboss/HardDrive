@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
+const { isEmail } = require("validator");
 const { isAddress } = require("web3-validator");
 const userSchema = new mongoose.Schema(
   {
@@ -12,16 +12,16 @@ const userSchema = new mongoose.Schema(
       required: [true, "Please provide your email"],
       unique: false,
       lowercase: true,
-      validate: [validator.isEmail, "Please provide a valid email"],
+      validate: {
+        validator: isEmail,
+        message: "please provide an email address",
+      },
     },
     address: {
       type: String,
       unique: true,
       required: [true, "Please give your wallet address"],
-      validate: [
-        isAddress(this.address),
-        "Please provide a valid wallet address",
-      ],
+      validate: [isAddress, "Please provide a valid wallet address"],
     },
     files: {
       type: [mongoose.Schema.ObjectId],

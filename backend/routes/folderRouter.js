@@ -4,3 +4,5 @@ const folderController = require("./../controllers/folderController");
 
 router.get("/:addr", folderController.getFolder); //get the user by his/her addr or email
 router.post("/createFolder", folderController.createFolder);
+
+module.exports = router;

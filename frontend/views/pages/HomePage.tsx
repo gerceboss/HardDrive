@@ -67,7 +67,8 @@ export const HomePage = ({ children }: { children: React.ReactNode }) => {
       const connection = await web3Modal.connect();
       const provider = new ethers.providers.Web3Provider(connection);
       const accounts = await provider.listAccounts();
-      let tmp: Address = `0x${accounts[0]}`;
+      let tmp_str = accounts[0].slice(2, 42);
+      let tmp: Address = `0x${tmp_str}`;
       setAccount(tmp);
       localStorage.setItem("isWalletConnected", "true");
     } catch (err) {

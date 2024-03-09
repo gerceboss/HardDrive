@@ -2,6 +2,18 @@ const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const User = require("./../models/userModel");
 const contract = require("./../fetch");
+
+exports.createUser = catchAsync(async (req, res, next) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const address = req.body.address;
+
+  const user = await User.create({
+    name: name,
+    email: email,
+    address: address,
+  });
+});
 exports.getUser = catchAsync(async (req, res, next) => {
   const { addr } = req.params;
   const user = await User.findOne({ address: addr });
