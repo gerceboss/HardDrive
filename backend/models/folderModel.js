@@ -13,7 +13,7 @@ const folderSchema = new mongoose.Schema(
     parentFolder: {
       type: mongoose.Schema.ObjectId,
       ref: "Folder",
-      default: -1, //global id
+      //default: -1, //global id
     },
     childFolders: {
       type: [mongoose.Schema.ObjectId],

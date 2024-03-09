@@ -7,13 +7,16 @@ exports.getFolder = catchAsync(async (req, res, next) => {
 });
 exports.createFolder = catchAsync(async (req, res, next) => {
   const folderName = req.body.folderName;
-  const parentFoldername = req.body.parentFoldername;
+  let parentFoldername = req.body.parentFoldername;
+  if (!parentFoldername) {
+    parentFoldername = "";
+  }
   const owner_addr = req.body.address;
-  const owner = User.findOne({ address: address });
+  const owner = await User.findOne({ address: owner_addr });
 
   const existing_folders = await Folder.find({});
   const folder_number = existing_folders.length;
-
+  console.log(parentFoldername, folderName, owner_addr);
   let folder;
   //say frontend manages the id and sends here
   if (parentFoldername === "" && folderName !== "") {

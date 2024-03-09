@@ -1,5 +1,5 @@
 const catchAsync = require("./../utils/catchAsync");
-const AppError = require("./../utils/appError");
+// const AppError = require("./../utils/appError");
 const User = require("./../models/userModel");
 const contract = require("./../fetch");
 
@@ -7,18 +7,26 @@ exports.createUser = catchAsync(async (req, res, next) => {
   const name = req.body.name;
   const email = req.body.email;
   const address = req.body.address;
+  console.log(name, email, address);
 
   const user = await User.create({
     name: name,
     email: email,
     address: address,
   });
+
+  if (user) {
+    res.status(200).json({
+      status: "success",
+      data: user,
+    });
+  }
 });
 exports.getUser = catchAsync(async (req, res, next) => {
   const { addr } = req.params;
   const user = await User.findOne({ address: addr });
   if (!user) {
-    return AppError("No user found", 404);
+    return;
   } else {
     res.status(200).json({
       status: "success",
@@ -47,7 +55,7 @@ exports.getAllFiles = catchAsync(async (req, res, next) => {
   });
 });
 exports.getAllFolders = catchAsync(async (req, res, next) => {
-  const { addr } = req.params;
+  const  addr  = req.params.addr;
   const user = await User.findOne({ address: addr }).populate("folders");
   const folders = user.folders;
   const folder_names = [];

@@ -6,7 +6,7 @@ const { xss } = require("express-xss-sanitizer");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-const globalErrorHandler = require("./controllers/errorController");
+// const globalErrorHandler = require("./controllers/errorController");
 const userRouter = require("./routes/userRouter");
 const fileRouter = require("./routes/fileRouter");
 const folderRouter = require("./routes/folderRouter");
@@ -46,10 +46,10 @@ app.use("/api/folder", folderRouter);
 
 //other errors if any during prod environment
 app.all("*", (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+  next();
 });
 
-app.use(globalErrorHandler);
+// app.use(globalErrorHandler);
 
 const port = 5000;
 
