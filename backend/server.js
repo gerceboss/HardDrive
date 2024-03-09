@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-// const mongoSanitize = require("mongo-sanitize");
-// const xss = require("xss");
+const mongoSanitize = require("express-mongo-sanitize");
+const { xss } = require("express-xss-sanitizer");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
@@ -34,10 +34,10 @@ app.use(cors());
 app.use(helmet());
 
 // Data sanitization against NoSQL query injection
-//app.use(mongoSanitize());
+app.use(mongoSanitize());
 
 // Data sanitization against XSS
-//app.use(xss());
+app.use(xss());
 
 //example of a route
 app.use("/api/user", userRouter);
