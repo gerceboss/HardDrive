@@ -21,10 +21,23 @@ exports.createFolder = catchAsync(async (req, res, next) => {
   //say frontend manages the id and sends here
   if (parentFoldername === "" && folderName !== "") {
     folder = await Folder.create({ name: folderName, owner: owner });
+    const prev_folders = owner.folders;
+    prev_folders.push(folder);
+    const newOwner = await User.updateOne({
+      _id: owner._id,
+      folders: prev_folders,
+    });
+
   } else if (parentFoldername === "" && folderName === "") {
     folder = await Folder.create({
       name: `folder-${folder_number}`,
       owner: owner,
+    });
+    const prev_folders = owner.folders;
+    prev_folders.push(folder);
+    const newOwner = await User.updateOne({
+      _id: owner._id,
+      folders: prev_folders,
     });
   } else if (parentFoldername !== "" && folderName === "") {
     const parent = await Folder.findOne({ name: parentFoldername });
@@ -32,6 +45,12 @@ exports.createFolder = catchAsync(async (req, res, next) => {
       parentFolder: parent,
       name: `folder-${folder_number}`,
       owner: owner,
+    });
+    const prev_folders = owner.folders;
+    prev_folders.push(folder);
+    const newOwner = await User.updateOne({
+      _id: owner._id,
+      folders: prev_folders,
     });
     const updatedChildren = parent.childFolders;
     updatedChildren.push(folder);
@@ -45,6 +64,12 @@ exports.createFolder = catchAsync(async (req, res, next) => {
       name: folderName,
       parentFolder: parent._id,
       owner: owner,
+    });
+    const prev_folders = owner.folders;
+    prev_folders.push(folder);
+    const newOwner = await User.updateOne({
+      _id: owner._id,
+      folders: prev_folders,
     });
     const updatedChildren = parent.childFolders;
     updatedChildren.push(folder);

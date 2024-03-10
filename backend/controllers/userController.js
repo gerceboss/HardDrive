@@ -7,7 +7,6 @@ exports.createUser = catchAsync(async (req, res, next) => {
   const name = req.body.name;
   const email = req.body.email;
   const address = req.body.address;
-  console.log(name, email, address);
 
   const user = await User.create({
     name: name,
@@ -55,12 +54,12 @@ exports.getAllFiles = catchAsync(async (req, res, next) => {
   });
 });
 exports.getAllFolders = catchAsync(async (req, res, next) => {
-  const  addr  = req.params.addr;
+  const addr = req.params.addr;
   const user = await User.findOne({ address: addr }).populate("folders");
   const folders = user.folders;
   const folder_names = [];
   for (let i in folders) {
-    folder_names += folders[i].name;
+    folder_names.push(folders[i].name);
   }
   res.status(200).json({
     status: "success",

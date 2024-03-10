@@ -18,14 +18,14 @@ export const createNewFolder = async (
   parentFolderName: any
 ) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/folder/createFolder`;
-  const data = {
+  const body = {
     folderName,
     parentFolderName,
     address,
   };
   try {
-    const folder = await axios.post(url, data);
-    console.log(folder);
+    const {data} = await axios.post(url, body);
+    console.log(data);
   } catch (e) {
     return "failed";
   }

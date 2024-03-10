@@ -7,23 +7,22 @@ import { useAccount } from "wagmi";
 import { getAllFolders, createNewFolder } from "../services/folder";
 import { draftMode } from "next/headers";
 import { useState, useEffect } from "react";
-import { IFolder } from "../interfaces/folder";
 
 const DrivePage = () => {
   const [showForm, setShowForm] = useState(false);
   const [folders, setFolders] = useState<string[]>([]);
   const [folderName, setFolderName] = useState("");
   const account_addr = useAccount().address;
-  console.log(account_addr);
   const getFolders = async () => {
     const folders_ = await getAllFolders(account_addr);
-    setFolders(folders_.name);
+    setFolders(folders_);
     console.log(folders);
   };
   const createFolder = async () => {
-    console.log("folder creation initiated");
     const status = await createNewFolder(account_addr, folderName, "");
-    console.log(status);
+    const newFolders = folders;
+    newFolders.push(folderName);
+    setFolders(newFolders);
   };
 
   return (
@@ -53,11 +52,12 @@ const DrivePage = () => {
       <div>
         <button onClick={getFolders}>show Folder</button>
       </div>
-      <ul>
+      <p>{folders}</p>
+      {/* <ul>
         {folders.map((folder) => (
           <li>{folder}</li>
         ))}
-      </ul>
+      </ul> */}
     </>
   );
 };
