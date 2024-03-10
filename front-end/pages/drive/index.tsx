@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { Stack, Link } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import LinkNext from "next/link";
+import { useStorageUpload } from "@thirdweb-dev/react";
 
 interface Menu {
   label: string;
@@ -23,7 +24,21 @@ const DrivePage = () => {
   const [showForm, setShowForm] = useState(false);
   const [folders, setFolders] = useState<string[] | null>([]);
   const [folderName, setFolderName] = useState("");
+  const [file, setFile] = useState<any>();
   const account_addr = useAccount().address;
+
+  const { mutateAsync: upload } = useStorageUpload();
+
+  const uploadToIpfs = async () => {
+    const uploadURL = await upload({
+      data: [file],
+      options: {
+        uploadWithGatewayUrl: true,
+        uploadWithoutDirectory: true,
+      },
+    });
+    console.log(uploadURL);
+  };
 
   const createFolder = async () => {
     const status = await createNewFolder(account_addr, folderName, "");
@@ -66,19 +81,32 @@ const DrivePage = () => {
       </div>
 
       <Stack direction={"column"} spacing={10}>
-        {(folders !== null) ? folders.map((folder, i) => (
-          <Link
-            key={i}
-            as={LinkNext}
-            href={`/drive/${folder}`}
-            fontWeight={
-              router.pathname === `/drive/${folder}` ? "bold" : "normal"
-            }
-          >
-            {folder}
-          </Link>
-        )): null}
+        {folders !== null
+          ? folders.map((folder, i) => (
+              <Link
+                key={i}
+                as={LinkNext}
+                href={`/drive/${folder}`}
+                fontWeight={
+                  router.pathname === `/drive/${folder}` ? "bold" : "normal"
+                }
+              >
+                {folder}
+              </Link>
+            ))
+          : null}
       </Stack>
+      <div>
+        <input
+          type="file"
+          onChange={(e) => {
+            if (e.target.files) {
+              setFile(e.target.files[0]);
+            }
+          }}
+        />
+        <button onClick={uploadToIpfs}>upload</button>
+      </div>
     </>
   );
 };
