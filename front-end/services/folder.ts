@@ -1,6 +1,4 @@
 import axios from "axios";
-import { Address } from "viem";
-import { IFolder } from "../interfaces/folder";
 
 export const getAllFolders = async (address: any) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/${address}/folders`;

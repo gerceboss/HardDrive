@@ -23,11 +23,14 @@ exports.createFolder = catchAsync(async (req, res, next) => {
     folder = await Folder.create({ name: folderName, owner: owner });
     const prev_folders = owner.folders;
     prev_folders.push(folder);
-    const newOwner = await User.updateOne({
-      _id: owner._id,
-      folders: prev_folders,
-    });
-
+    const newOwner = await User.updateOne(
+      {
+        _id: owner._id,
+      },
+      {
+        folders: prev_folders,
+      }
+    );
   } else if (parentFoldername === "" && folderName === "") {
     folder = await Folder.create({
       name: `folder-${folder_number}`,
@@ -35,10 +38,14 @@ exports.createFolder = catchAsync(async (req, res, next) => {
     });
     const prev_folders = owner.folders;
     prev_folders.push(folder);
-    const newOwner = await User.updateOne({
-      _id: owner._id,
-      folders: prev_folders,
-    });
+    const newOwner = await User.updateOne(
+      {
+        _id: owner._id,
+      },
+      {
+        folders: prev_folders,
+      }
+    );
   } else if (parentFoldername !== "" && folderName === "") {
     const parent = await Folder.findOne({ name: parentFoldername });
     folder = await Folder.create({
@@ -48,16 +55,24 @@ exports.createFolder = catchAsync(async (req, res, next) => {
     });
     const prev_folders = owner.folders;
     prev_folders.push(folder);
-    const newOwner = await User.updateOne({
-      _id: owner._id,
-      folders: prev_folders,
-    });
+    const newOwner = await User.updateOne(
+      {
+        _id: owner._id,
+      },
+      {
+        folders: prev_folders,
+      }
+    );
     const updatedChildren = parent.childFolders;
     updatedChildren.push(folder);
-    const newParent = await Folder.updateOne({
-      _id: parent._id,
-      childFolders: updatedChildren,
-    });
+    const newParent = await Folder.updateOne(
+      {
+        _id: parent._id,
+      },
+      {
+        childFolders: updatedChildren,
+      }
+    );
   } else {
     const parent = await Folder.findOne({ name: parentFoldername });
     folder = await Folder.create({
@@ -67,16 +82,24 @@ exports.createFolder = catchAsync(async (req, res, next) => {
     });
     const prev_folders = owner.folders;
     prev_folders.push(folder);
-    const newOwner = await User.updateOne({
-      _id: owner._id,
-      folders: prev_folders,
-    });
+    const newOwner = await User.updateOne(
+      {
+        _id: owner._id,
+      },
+      {
+        folders: prev_folders,
+      }
+    );
     const updatedChildren = parent.childFolders;
     updatedChildren.push(folder);
-    const newParent = await Folder.updateOne({
-      _id: parent._id,
-      childFolders: updatedChildren,
-    });
+    const newParent = await Folder.updateOne(
+      {
+        _id: parent._id,
+      },
+      {
+        childFolders: updatedChildren,
+      }
+    );
   }
   res.status(200).json({
     status: "success",
