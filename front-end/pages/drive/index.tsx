@@ -21,19 +21,24 @@ const MENU: Menu[] = [];
 const DrivePage = () => {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
-  const [folders, setFolders] = useState<string[]>([]);
+  const [folders, setFolders] = useState<string[] | null>([]);
   const [folderName, setFolderName] = useState("");
   const account_addr = useAccount().address;
-  const getFolders = async () => {
-    const folders_ = await getAllFolders(account_addr);
-    setFolders(folders_);
-  };
+
   const createFolder = async () => {
     const status = await createNewFolder(account_addr, folderName, "");
-    const newFolders = folders;
-    newFolders.push(folderName);
+    const newFolders = await getAllFolders(account_addr);
+    setShowForm(!showForm);
     setFolders(newFolders);
   };
+
+  useEffect(() => {
+    const getfolders = async () => {
+      const folders__ = await getAllFolders(account_addr);
+      setFolders(folders__);
+    };
+    getfolders();
+  }, []);
 
   return (
     <>
@@ -47,7 +52,7 @@ const DrivePage = () => {
           Create Folder
         </button>
         {showForm ? (
-          <form onSubmit={createFolder}>
+          <div>
             <label>
               Folder Name:
               <input
@@ -55,15 +60,13 @@ const DrivePage = () => {
                 onChange={(e) => setFolderName(e.target.value)}
               />
             </label>
-            <input type="submit" value="Submit" />
-          </form>
+            <button onClick={createFolder}>submit</button>
+          </div>
         ) : null}
       </div>
-      <div>
-        <button onClick={getFolders}>show Folder</button>
-      </div>
+
       <Stack direction={"column"} spacing={10}>
-        {folders.map((folder, i) => (
+        {(folders !== null) ? folders.map((folder, i) => (
           <Link
             key={i}
             as={LinkNext}
@@ -74,7 +77,7 @@ const DrivePage = () => {
           >
             {folder}
           </Link>
-        ))}
+        )): null}
       </Stack>
     </>
   );

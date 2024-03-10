@@ -5,7 +5,8 @@ export const Title = () => {
   return (
     <HStack as={Link} href="/" spacing={1} align="center">
       <Text
-        fontSize="2xl"
+      color="tan"
+        fontSize="xx-large"
         fontWeight="extrabold"
         textAlign={{
           base: "center",

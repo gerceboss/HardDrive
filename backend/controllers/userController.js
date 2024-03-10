@@ -56,14 +56,16 @@ exports.getAllFiles = catchAsync(async (req, res, next) => {
 exports.getAllFolders = catchAsync(async (req, res, next) => {
   const addr = req.params.addr;
   const user = await User.findOne({ address: addr }).populate("folders");
-  const folders = user.folders;
-  const folder_names = [];
-  for (let i in folders) {
-    folder_names.push(folders[i].name);
+  const folders_ = user.folders;
+  const folders = [];
+  for (let i in folders_) {
+    const folder = await folders_[i].populate(["childFolders", "files"]);
+    folders.push(folder);
   }
+  console.log(folders);
   res.status(200).json({
     status: "success",
-    data: folder_names,
+    data: folders,
   });
 });
 exports.uploadFile = catchAsync(async (req, res, next) => {}); // req.body me kya kya aana chahiye?

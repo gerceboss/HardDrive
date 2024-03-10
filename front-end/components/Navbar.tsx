@@ -2,7 +2,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 import styles from "../styles/Home.module.css";
 
-import { Stack, Link } from "@chakra-ui/react";
+import { Stack, Link, Button } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import LinkNext from "next/link";
 import { useRouter } from "next/router";
@@ -29,8 +29,8 @@ export const Navbar = () => {
   return (
     <>
       <Title />
-      <DesktopNav />
       <ConnectButton />
+      <DesktopNav />
     </>
   );
 };
@@ -46,6 +46,8 @@ const DesktopNav = () => {
             key={i}
             as={LinkNext}
             href={navItem.href}
+            color="teal"
+            fontSize={"x-large"}
             fontWeight={router.pathname === navItem.href ? "bold" : "normal"}
           >
             {navItem.label}
