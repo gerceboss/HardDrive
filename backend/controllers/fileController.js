@@ -21,3 +21,26 @@ exports.getFile = catchAsync(async (req, res, next) => {
     data: fileHash,
   });
 });
+
+//file uploaded
+exports.createFile = catchAsync(async (req, res, next) => {
+  const { name, createdAt, description, ipfsHash, size, address } = req.body;
+  const user = await User.findOne({ address: address });
+  const id = user._id;
+  const fileUploaded = await File.create({
+    name,
+    createdAt,
+    description,
+    ipfsHash,
+    size,
+    owner: id,
+  });
+  if (fileUploaded) {
+    res.status(200).json({
+      status: "success",
+      data: fileUploaded,
+    });
+  } else {
+    return AppError("file not uploaded", 404);
+  }
+});

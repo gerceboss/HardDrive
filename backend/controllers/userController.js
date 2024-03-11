@@ -2,11 +2,10 @@ const catchAsync = require("./../utils/catchAsync");
 // const AppError = require("./../utils/appError");
 const User = require("./../models/userModel");
 const contract = require("./../fetch");
+const AppError = require("../utils/appError");
 
 exports.createUser = catchAsync(async (req, res, next) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const address = req.body.address;
+  const { name, email, address } = req.body;
 
   const user = await User.create({
     name: name,
@@ -19,6 +18,8 @@ exports.createUser = catchAsync(async (req, res, next) => {
       status: "success",
       data: user,
     });
+  } else {
+    return AppError("user not created", 404);
   }
 });
 exports.getUser = catchAsync(async (req, res, next) => {
@@ -68,4 +69,3 @@ exports.getAllFolders = catchAsync(async (req, res, next) => {
     data: folders,
   });
 });
-exports.uploadFile = catchAsync(async (req, res, next) => {}); // req.body me kya kya aana chahiye?

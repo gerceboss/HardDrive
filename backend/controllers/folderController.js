@@ -107,5 +107,3 @@ exports.createFolder = catchAsync(async (req, res, next) => {
   });
 });
 
-//future me dekhenge
-exports.uploadFolder = catchAsync(async (req, res, next) => {});

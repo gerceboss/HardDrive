@@ -12,10 +12,6 @@ const fileSchema = new mongoose.Schema({
     type: String,
     required: [true, "give the hash of the stored file please"],
   },
-  metadata: {
-    type: String,
-    default: "",
-  },
   size: {
     type: Number,
     required: [true, "size batao sir"],
