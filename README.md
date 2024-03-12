@@ -67,7 +67,7 @@ Steps to run this project:
 ~/HardDrive/front-end$ npm run dev
 ```
 
-4. Open the terminal and navigate to the backend folder:
+4. Open a different terminal than the previous running terminal and navigate to the backend folder:
 
 ```bash
 ~/HardDrive$ cd backend
