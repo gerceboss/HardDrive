@@ -3,7 +3,7 @@ const AppError = require("./../utils/appError");
 const Folder = require("./../models/folderModel");
 const User = require("../models/userModel");
 exports.getFolder = catchAsync(async (req, res, next) => {
-  // populate the files
+  // get the folder if given address  has the access of the following folder or file
 });
 exports.createFolder = catchAsync(async (req, res, next) => {
   const folderName = req.body.folderName;
@@ -106,4 +106,3 @@ exports.createFolder = catchAsync(async (req, res, next) => {
     data: folder,
   });
 });
-
