@@ -29,18 +29,17 @@ exports.getFile = catchAsync(async (req, res, next) => {
 
 //file uploaded
 exports.createFile = catchAsync(async (req, res, next) => {
-  const { name, createdAt, description, ipfsHash, size, address } = req.body;
+  const { name, description, ipfsHash, size, address } = req.body;
   const user = await User.findOne({ address: address });
   const id = user._id;
   const fileUploaded = await File.create({
     name,
-    createdAt,
     description,
     ipfsHash,
     size,
     owner: id,
   });
-  await contract.methods.uploadFile().call({ from: `${addr}` });
+  await contract.methods.uploadFile().call({ from: `${address}` });
   //file transaction happened;
 
   if (fileUploaded) {

@@ -11,6 +11,7 @@ import { Stack, Link } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import LinkNext from "next/link";
 import { useStorageUpload } from "@thirdweb-dev/react";
+import { uploadFile, getAllFiles } from "../../services/file";
 
 interface Menu {
   label: string;
@@ -22,9 +23,11 @@ const MENU: Menu[] = [];
 const DrivePage = () => {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
+  const [showImgForm, setShowImgForm] = useState(false);
   const [folders, setFolders] = useState<string[] | null>([]);
   const [folderName, setFolderName] = useState("");
   const [file, setFile] = useState<any>();
+  const [fileHashes, setFileHashes] = useState<string[] | null>([]);
   const account_addr = useAccount().address;
 
   const { mutateAsync: upload } = useStorageUpload();
@@ -38,6 +41,16 @@ const DrivePage = () => {
       },
     });
     console.log(uploadURL);
+    const resFile = await uploadFile(
+      file.name,
+      "this is a file",
+      uploadURL[0],
+      file.size,
+      account_addr
+    );
+    const allFileHashes = await getAllFiles(account_addr);
+    setFileHashes(allFileHashes);
+    setShowImgForm(!showImgForm);
   };
 
   const createFolder = async () => {
@@ -79,7 +92,6 @@ const DrivePage = () => {
           </div>
         ) : null}
       </div>
-
       <Stack direction={"column"} spacing={10}>
         {folders !== null
           ? folders.map((folder, i) => (
@@ -97,16 +109,36 @@ const DrivePage = () => {
           : null}
       </Stack>
       <div>
-        <input
-          type="file"
-          onChange={(e) => {
-            if (e.target.files) {
-              setFile(e.target.files[0]);
-            }
+        <button
+          onClick={() => {
+            setShowImgForm(!showImgForm);
           }}
-        />
-        <button onClick={uploadToIpfs}>upload</button>
+        >
+          Upload File
+        </button>
+        {showImgForm ? (
+          <div>
+            <input
+              type="file"
+              onChange={(e) => {
+                if (e.target.files) {
+                  setFile(e.target.files[0]);
+                }
+              }}
+            />
+            <button onClick={uploadToIpfs}>upload</button>
+          </div>
+        ) : null}
       </div>
+      <Stack direction={"column"} spacing={10}>
+        {fileHashes !== null
+          ? fileHashes.map((fileHash, i) => (
+              <Link key={i} as={LinkNext} href={fileHash}>
+                {fileHash}
+              </Link>
+            ))
+          : null}
+      </Stack>
     </>
   );
 };

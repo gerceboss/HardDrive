@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Stack, Link } from "@chakra-ui/react";
 import { Navbar } from "../../components/Navbar";
 import LinkNext from "next/link";
+import { useStorageUpload } from "@thirdweb-dev/react";
 
 const FolderPage = () => {
   const router = useRouter();
@@ -13,6 +14,20 @@ const FolderPage = () => {
   const [folders, setFolders] = useState<string[] | null>([]);
   const [folderName, setFolderName] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [file, setFile] = useState<any>();
+
+  const { mutateAsync: upload } = useStorageUpload();
+
+  const uploadToIpfs = async () => {
+    const uploadURL = await upload({
+      data: [file],
+      options: {
+        uploadWithGatewayUrl: true,
+        uploadWithoutDirectory: true,
+      },
+    });
+    console.log(uploadURL);
+  };
 
   const createFolder = async () => {
     const status = await createNewFolder(
@@ -78,6 +93,17 @@ const FolderPage = () => {
             ))
           : null}
       </Stack>
+      <div>
+        <input
+          type="file"
+          onChange={(e) => {
+            if (e.target.files) {
+              setFile(e.target.files[0]);
+            }
+          }}
+        />
+        <button onClick={uploadToIpfs}>upload</button>
+      </div>
     </>
   );
 };

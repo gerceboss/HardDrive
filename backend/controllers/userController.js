@@ -2,7 +2,6 @@ const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const User = require("./../models/userModel");
 const contract = require("./../fetch");
-const AppError = require("../utils/appError");
 const File = require("./../models/fileModel");
 
 exports.createUser = catchAsync(async (req, res, next) => {
@@ -45,7 +44,7 @@ exports.getAllFiles = catchAsync(async (req, res, next) => {
   //fetch the hashes from the on-chain contract
   const fileHashesChain = await contract.methods
     .getMyFiles()
-    .call({ from: `${userAddr}` }); // get all the files user has access to
+    .call({ from: `${addr}` }); // get all the files user has access to
 
   const fileHashes = await File.findOne({ owner: user._id });
   res.status(200).json({
