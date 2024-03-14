@@ -39,7 +39,10 @@ exports.createFile = catchAsync(async (req, res, next) => {
     size,
     owner: id,
   });
-  await contract.methods.uploadFile().call({ from: `${address}` });
+  const result = await contract.methods
+    .uploadFile(name)
+    .call({ from: `${address}` });
+  console.log(result);
   //file transaction happened;
 
   if (fileUploaded) {

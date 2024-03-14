@@ -46,7 +46,7 @@ exports.getAllFiles = catchAsync(async (req, res, next) => {
     .getMyFiles()
     .call({ from: `${addr}` }); // get all the files user has access to
 
-  const fileHashes = await File.findOne({ owner: user._id });
+  const fileHashes = await File.find({ owner: user._id });
   res.status(200).json({
     status: "success",
     data: fileHashes,

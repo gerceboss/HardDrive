@@ -27,7 +27,7 @@ const DrivePage = () => {
   const [folders, setFolders] = useState<string[] | null>([]);
   const [folderName, setFolderName] = useState("");
   const [file, setFile] = useState<any>();
-  const [fileHashes, setFileHashes] = useState<string[] | null>([]);
+  const [fileInfo, setfileInfo] = useState<any[] | null>([]);
   const account_addr = useAccount().address;
 
   const { mutateAsync: upload } = useStorageUpload();
@@ -48,8 +48,9 @@ const DrivePage = () => {
       file.size,
       account_addr
     );
-    const allFileHashes = await getAllFiles(account_addr);
-    setFileHashes(allFileHashes);
+    console.log(resFile);
+    const allfileInfo = await getAllFiles(account_addr);
+    setfileInfo(allfileInfo);
     setShowImgForm(!showImgForm);
   };
 
@@ -65,7 +66,12 @@ const DrivePage = () => {
       const folders__ = await getAllFolders(account_addr);
       setFolders(folders__);
     };
+    const getFiles = async () => {
+      const files__ = await getAllFiles(account_addr);
+      setfileInfo(files__);
+    };
     getfolders();
+    getFiles();
   }, []);
 
   return (
@@ -131,10 +137,10 @@ const DrivePage = () => {
         ) : null}
       </div>
       <Stack direction={"column"} spacing={10}>
-        {fileHashes !== null
-          ? fileHashes.map((fileHash, i) => (
-              <Link key={i} as={LinkNext} href={fileHash}>
-                {fileHash}
+        {fileInfo !== null
+          ? fileInfo.map((fileHash, i) => (
+              <Link key={i} as={LinkNext} href={fileHash.ipfsHash}>
+                {fileHash.name}
               </Link>
             ))
           : null}

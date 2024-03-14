@@ -27,9 +27,14 @@ export const getAllFiles = async (address: any) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/${address}/myFiles`;
   try {
     const files = await axios.get(url).then((res) => res.data?.data || null);
+    console.log(files);
     const file_hashes = [];
     for (let i in files) {
-      file_hashes.push(files[i].ipfsHash);
+      const obj = {
+        name: files[i].name,
+        ipfsHash: files[i].ipfsHash,
+      };
+      file_hashes.push(obj);
     }
     return file_hashes;
   } catch (e) {
