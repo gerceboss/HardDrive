@@ -25,10 +25,11 @@ const MENU: Menu[] = [
   },
 ];
 
-export const Navbar = () => {
+export const HomeNavbar = () => {
   return (
-    <div className="Navbar">
+    <div>
       <Title />
+      <ConnectButton />
       <DesktopNav />
     </div>
   );

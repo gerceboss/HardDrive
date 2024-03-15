@@ -7,11 +7,12 @@ import { useAccount } from "wagmi";
 import { getAllFolders, createNewFolder } from "../../services/folder";
 import { draftMode } from "next/headers";
 import { useState, useEffect } from "react";
-import { Stack, Link } from "@chakra-ui/react";
+import { Stack, Link, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import LinkNext from "next/link";
 import { useStorageUpload } from "@thirdweb-dev/react";
 import { uploadFile, getAllFiles } from "../../services/file";
+import { Sidebar } from "../../components/Sidebar";
 
 interface Menu {
   label: string;
@@ -77,14 +78,20 @@ const DrivePage = () => {
   return (
     <>
       <Navbar />
+      <div className="metamask">
+        <ConnectButton />
+      </div>
       <div>
-        <button
-          onClick={() => {
-            setShowForm(!showForm);
-          }}
-        >
-          Create Folder
-        </button>
+        <div className="createFolder">
+          <button
+            className="button-3"
+            onClick={() => {
+              setShowForm(!showForm);
+            }}
+          >
+            Create Folder
+          </button>
+        </div>
         {showForm ? (
           <div>
             <label>
@@ -98,10 +105,21 @@ const DrivePage = () => {
           </div>
         ) : null}
       </div>
-      <Stack direction={"column"} spacing={10}>
+      <Stack
+        direction={"column"}
+        spacing={10}
+        position={"relative"}
+        width={"80%"}
+        float={"right"}
+        borderRadius={"15px"}
+      >
         {folders !== null
           ? folders.map((folder, i) => (
               <Link
+                bgColor={"#949fd3"}
+                borderRadius={"10px"}
+                padding={"10px"}
+                fontSize={"x-large"}
                 key={i}
                 as={LinkNext}
                 href={`/drive/${folder}`}
@@ -115,13 +133,16 @@ const DrivePage = () => {
           : null}
       </Stack>
       <div>
-        <button
-          onClick={() => {
-            setShowImgForm(!showImgForm);
-          }}
-        >
-          Upload File
-        </button>
+        <div className="upload">
+          <button
+            className="button-3"
+            onClick={() => {
+              setShowImgForm(!showImgForm);
+            }}
+          >
+            Upload File
+          </button>
+        </div>
         {showImgForm ? (
           <div>
             <input

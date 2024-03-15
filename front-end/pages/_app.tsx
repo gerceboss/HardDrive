@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "../styles/Sidebar.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
@@ -22,7 +23,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>
-          <ThirdwebProvider activeChain={"mumbai"} clientId="cb2397504e2e55d5db11f18ca2c29f7a">
+          <ThirdwebProvider
+            activeChain={"mumbai"}
+            clientId="cb2397504e2e55d5db11f18ca2c29f7a"
+          >
             <Component {...pageProps} />
           </ThirdwebProvider>
         </RainbowKitProvider>
