@@ -75,12 +75,17 @@ const DrivePage = () => {
     getFiles();
   }, []);
 
+  const goToProfilePage = () => {
+    router.push('/profile');
+  };
+
   return (
     <>
       <Navbar />
       <div className="metamask">
         <ConnectButton />
       </div>
+      <Button onClick={goToProfilePage}>Profile</Button>
       <div>
         <div className="createFolder">
           <button

@@ -51,7 +51,7 @@ app.all("*", (req, res, next) => {
 
 // app.use(globalErrorHandler);
 
-const port = 5000;
+const port = 5001;
 
 app.listen(port, () => {
   console.log(`listening to the port ${port}`);
