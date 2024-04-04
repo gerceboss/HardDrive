@@ -13,10 +13,7 @@ const folderRouter = require("./routes/folderRouter");
 
 dotenv.config({ path: "./config.env" });
 
-const DB = process.env.DATABASE.replace(
-  "<PASSWORD>",
-  process.env.DATABASE_PASSWORD
-);
+const DB = process.env.DATABASE.replace("<PASSWORD>", process.env.DATABASE_PASSWORD);
 
 mongoose
   .connect(DB, {
@@ -51,7 +48,7 @@ app.all("*", (req, res, next) => {
 
 // app.use(globalErrorHandler);
 
-const port = 5001;
+const port = 5000;
 
 app.listen(port, () => {
   console.log(`listening to the port ${port}`);
