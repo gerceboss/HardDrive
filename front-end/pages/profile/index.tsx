@@ -1,62 +1,57 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Link from 'next/link'; 
-import styles from '../../styles/Home.module.css';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Button } from "@chakra-ui/react";
 import { Navbar } from '../../components/Navbar';
 import { profile } from '../../services/profile';
 import { useAccount } from "wagmi";
-import { Button } from "@chakra-ui/react"; 
-import { useRouter } from 'next/router'; 
+import styles from '../../styles/Profile.module.css';
+import { Title } from '../../components/Title';
+import { ProfileNavbar } from '../../components/ProfileNavbar';
 
 const ProfilePage: React.FC = () => {
   const [userData, setUserData] = useState<any>({ name: '', email: '', address: '' });
-  const account_addr = useAccount().address;
-  const router = useRouter(); 
+  const accountAddr = useAccount().address;
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const address = account_addr;
-        const userProfile = await profile(address);
-        setUserData(userProfile || { name: 'enter the name', email: 'enter the email', address: 'enter the address' });
+        const userProfile = await profile(accountAddr);
+        console.log(userProfile)
+        setUserData(userProfile.data || { name: 'Name not available', email: 'Email not available', address: 'Address not available' });
       } catch (error) {
         console.error('Error fetching user profile:', error);
       }
     };
 
-    fetchUserProfile(); 
-  }, [account_addr]); 
+    fetchUserProfile();
+  }, [accountAddr]);
 
   const goToUpdatePage = () => {
-    router.push('/update'); 
+    router.push('/update');
+    
   };
+
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Profile | CloudiFi</title>
-        <meta name="description" content="User Profile" />
-        <link href="/favicon.ico" rel="icon" />
-      </Head>
-
-      <Navbar />
+      <ProfileNavbar />
 
       <main className={styles.main}>
-        <h1>User Profile</h1>
-        <div>
+        <img src="AkshatProfilePhoto.jpg" width="200px" height="200px"></img>
+        <h1>Hi There!</h1>
+        <div className={styles.profileInfo}>
           <h2>Name: {userData.name}</h2>
           <p>Email: {userData.email}</p>
           <p>Address: {userData.address}</p>
-        </div>
-        <div>
-          <Button onClick={goToUpdatePage}>Edit Profile</Button>
+          <Button className={styles.editButton} onClick={goToUpdatePage}>Edit Profile</Button>
         </div>
       </main>
 
       <footer className={styles.footer}>
-        <a href="https://rainbow.me" rel="noopener noreferrer" target="_blank">
-          Made with ❤️ by GROUP-7
-        </a>
+        <p>Made with ❤️ by GROUP-7</p>
       </footer>
     </div>
   );

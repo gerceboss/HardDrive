@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import styles from '../../styles/Home.module.css';
+import styles from '../../styles/Profile.module.css';
 import { Navbar } from '../../components/Navbar';
 import { update } from '../../services/profile';
 import { Button } from "@chakra-ui/react"; 
 import { useRouter } from 'next/router'; 
+import { ProfileNavbar } from '../../components/ProfileNavbar';
 
 const UpdateProfilePage: React.FC = () => {
   const [name, setName] = useState('');
@@ -34,48 +35,51 @@ const UpdateProfilePage: React.FC = () => {
         <meta name="description" content="Update User Profile" />
         <link href="/favicon.ico" rel="icon" />
       </Head>
-
-      <Navbar />
-
+  
+      <ProfileNavbar />
+  
       <main className={styles.main}>
         <h1>Update Profile</h1>
-        <div>
-          <label>
-            Name:
+        <div className={styles.formContainer}>
+          <div className={styles.formField}>
+            <label htmlFor="name">Name:</label>
             <input
               type="text"
+              id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-          </label>
-          <label>
-            Email:
+          </div>
+          <div className={styles.formField}>
+            <label htmlFor="email">Email:</label>
             <input
               type="email"
+              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-          </label>
-          <label>
-            Address:
+          </div>
+          <div className={styles.formField}>
+            <label htmlFor="address">Address:</label>
             <input
               type="text"
+              id="address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
-          </label>
+          </div>
           {error && <p>{error}</p>}
-          <Button onClick={handleUpdate}>Save</Button>
+          <Button className="button-3" onClick={handleUpdate}> Save </Button>
         </div>
       </main>
-
+  
       <footer className={styles.footer}>
-        <a href="https://rainbow.me" rel="noopener noreferrer" target="_blank">
+        <a rel="noopener noreferrer" target="_blank">
           Made with ❤️ by GROUP-7
         </a>
       </footer>
     </div>
-  );
+  );  
 };
 
 export default UpdateProfilePage;

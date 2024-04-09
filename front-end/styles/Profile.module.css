@@ -1,0 +1,141 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .navbar {
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .footer {
+    width: 100%;
+    padding: 1rem 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer a:hover {
+    color: #FF4500; /* Change color on hover to create interaction */
+  }
+  
+  .profileInfo {
+    margin-bottom: 2rem;
+  }
+  
+  .editButton {
+    margin-top: 2rem;
+  }
+  
+  /* Additional styles for headings and paragraph */
+  .profileHeading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .profileSubheading {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .profileParagraph {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Add styles for button */
+  .Button {
+    background-color: #FF4500;
+    color: #fff;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .Button:hover {
+    background-color: #FF6347; /* Lighten the button color on hover */
+  }
+
+  .editButton {
+    margin-top: 2rem;
+    background-color: rgb(15, 92, 134);
+    color: #fff;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .editButton:hover {
+    background-color: #2c8397;
+  }
+
+  .ProfileNavbar {
+    position: sticky;
+    background-color: rgb(15, 92, 134);
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+
+  .TitleContainer {
+    margin-left: 20px; /* Adjust the value as needed for the desired space */
+  }
+
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Align items at the center horizontally */
+  }
+  
+  .formField {
+    width: 100%;
+    max-width: 400px; /* Adjust the max-width as needed */
+    margin-bottom: 1.5rem;
+  }
+  
+  .formField label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .textInput,
+  .emailInput {
+    width: 100%;
+    padding: 0.75rem; /* Increase padding for better input spacing */
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  

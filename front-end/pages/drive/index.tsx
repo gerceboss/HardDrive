@@ -12,7 +12,8 @@ import { useRouter } from "next/router";
 import LinkNext from "next/link";
 import { useStorageUpload } from "@thirdweb-dev/react";
 import { uploadFile, getAllFiles } from "../../services/file";
-import { Sidebar } from "../../components/Sidebar";
+import  {Sidebar}  from "../../components/Sidebar";
+import { faFolder } from "@fortawesome/free-solid-svg-icons";
 
 interface Menu {
   label: string;
@@ -30,6 +31,10 @@ const DrivePage = () => {
   const [file, setFile] = useState<any>();
   const [fileInfo, setfileInfo] = useState<any[] | null>([]);
   const account_addr = useAccount().address;
+  const[displayFolders,setdisplayFolders]=useState(true);
+  const[displayFiles,setdisplayFiles]=useState(true);
+
+
 
   const { mutateAsync: upload } = useStorageUpload();
 
@@ -81,11 +86,18 @@ const DrivePage = () => {
 
   return (
     <>
+      <Sidebar setdisplayFiles={setdisplayFiles} setdisplayFolders={setdisplayFolders}/>
+      <div className="NotSidebar">
       <Navbar />
       <div className="metamask">
         <ConnectButton />
       </div>
-      <Button onClick={goToProfilePage}>Profile</Button>
+      {/* <Button onClick={goToProfilePage}>Profile</Button> */}
+      <div>
+        <button className="profileButton1" onClick={goToProfilePage}>
+          {/* <Button onClick={goToProfilePage}>Phto</Button> */}
+        </button>
+      </div>
       <div>
         <div className="createFolder">
           <button
@@ -110,33 +122,6 @@ const DrivePage = () => {
           </div>
         ) : null}
       </div>
-      <Stack
-        direction={"column"}
-        spacing={10}
-        position={"relative"}
-        width={"80%"}
-        float={"right"}
-        borderRadius={"15px"}
-      >
-        {folders !== null
-          ? folders.map((folder, i) => (
-              <Link
-                bgColor={"#949fd3"}
-                borderRadius={"10px"}
-                padding={"10px"}
-                fontSize={"x-large"}
-                key={i}
-                as={LinkNext}
-                href={`/drive/${folder}`}
-                fontWeight={
-                  router.pathname === `/drive/${folder}` ? "bold" : "normal"
-                }
-              >
-                {folder}
-              </Link>
-            ))
-          : null}
-      </Stack>
       <div>
         <div className="upload">
           <button
@@ -148,6 +133,19 @@ const DrivePage = () => {
             Upload File
           </button>
         </div>
+        {displayFolders ? 
+                <div className="folderContainer">
+                {folders !== null &&
+                  folders.map((folder, i) => (
+                    <Link key={i} as={LinkNext} href={`/drive/${folder}`}>
+                      <div className="folders">
+                        {folder}  
+                      </div> 
+                    </Link>
+                  ))}
+              </div>
+              : null
+        }
         {showImgForm ? (
           <div>
             <input
@@ -162,15 +160,20 @@ const DrivePage = () => {
           </div>
         ) : null}
       </div>
-      <Stack direction={"column"} spacing={10}>
-        {fileInfo !== null
-          ? fileInfo.map((fileHash, i) => (
-              <Link key={i} as={LinkNext} href={fileHash.ipfsHash}>
+      {displayFiles ?
+       <div className="folderContainer">
+        {fileInfo !== null &&
+           fileInfo.map((fileHash, i) => (
+              <Link 
+              key={i} as={LinkNext} href={fileHash.ipfsHash}>
+                <div className="folders">
                 {fileHash.name}
+                </div>
               </Link>
-            ))
+            ))}
+      </div> 
           : null}
-      </Stack>
+      </div>
     </>
   );
 };

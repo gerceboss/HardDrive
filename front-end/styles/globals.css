@@ -15,6 +15,10 @@ a {
   box-sizing: border-box;
 }
 
+.NotSidebar {
+  margin-left: 13%;
+}
+
 .Navbar {
   position: sticky;
   background-color: rgb(15, 92, 134);
@@ -31,13 +35,36 @@ a {
 .createFolder {
   position: absolute;
   top: 90px;
-  right: 16px;
+  right: 130px;
 }
 
 .upload {
   position: absolute;
   top: 90px;
-  right: 150px;
+  right: 270px;
+}
+
+.profileButton1 {
+  position: absolute;
+  top: 75px;
+  right: 40px;
+  background-color: #3498db; /* Blue color for profile button */
+  color: #fff; /* White text color */
+  border: none; /* No border */
+  border-radius: 50%; /* Round shape */
+  width: 60px; /* Adjust size */
+  height: 60px;
+  font-size: 20px;
+  background-image: url('../public/ProfileIcon.jpg');
+  background-size: 165%; /* Fit image to button without stretching */
+  background-repeat: no-repeat; /* Prevent image from repeating */
+  background-position: center; /* Center the image */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.profileButton1:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+  filter: brightness(0.8); /* Darken the image on hover */
 }
 
 /* CSS */
@@ -64,6 +91,7 @@ a {
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
+  transition: background-color 0.3s ease;
 }
 
 .button-3:focus:not(:focus-visible):not(.focus-visible) {
@@ -90,4 +118,53 @@ a {
 .button-3:active {
   background-color: #295a8e;
   box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+.menu-item {
+  text-decoration: none;
+  color: #3182ce;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.2s ease-in-out;
+
+}
+
+.menu-item.active {
+  color: #3182ce;
+}
+
+.menu-item:hover {
+  color: #4a9cdf;
+}
+
+.folderContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 15px 15px 15px;
+}
+
+.folders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #eedcb4; /* Light gray background */
+  color: #000000; /* Black text */
+  font-size: 14px;
+  text-align: center;
+  width: 100%; /* Fixed width for consistent folder size */
+  height: auto; /* Allow height to adjust based on content */
+  box-sizing: border-box;
+  overflow: hidden;
+  word-wrap: break-word; /* Allow text to wrap within the folder */
+  border: 1px solid #180606; /* Add border for folder */
+}
+
+.folders:hover {
+  background-color: #e0e0e0; /* Lighter background color on hover */
+  cursor: pointer; /* Change cursor to pointer on hover */
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 // import validator from 'validator';
 
 export const profile = async(address: any) => {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/${address}/profile`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/${address}`;
   try {
     const userProfile = await axios.get(url).then((res) => res.data || null);
     console.log(userProfile);
