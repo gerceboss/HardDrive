@@ -41,3 +41,44 @@ export const getAllFiles = async (address: any) => {
     return null;
   }
 };
+
+
+
+export const giveAccess = async (
+  filename: any,
+  accessAddress: any,
+  address: any
+) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/${address}/giveAccess`;
+  try {
+    const body = {
+      filename,
+      accessAddress,
+      address,
+    };
+    const { data } = await axios.patch(url, body);
+  } catch (e) {
+    return "failed ni  de payaa acess";
+  }
+  return "success access given";
+};
+
+
+export const blockAccess = async (
+  filename: any,
+  accessAddress: any,
+  address: any
+) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/${address}/blockAccess`;
+  try {
+    const body = {
+      filename,
+      accessAddress,
+      address,
+    };
+    const { data } = await axios.post(url, body);
+  } catch (e) {
+    return "failed ni kr paya block acess";
+  }
+  return "success  blocked access";
+};

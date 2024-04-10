@@ -42,9 +42,7 @@ exports.getAllFiles = catchAsync(async (req, res, next) => {
     return AppError("No such user exists", 404);
   }
   //fetch the hashes from the on-chain contract
-  const fileHashesChain = await contract.methods
-    .getMyFiles()
-    .call({ from: `${addr}` }); // get all the files user has access to
+  const fileHashesChain = await contract.methods.getMyFiles().call({ from: `${addr}` }); // get all the files user has access to
 
   const fileHashes = await File.find({ owner: user._id });
   res.status(200).json({
@@ -72,10 +70,8 @@ exports.giveAccess = catchAsync(async (req, res, next) => {
   const { addr } = req.params;
   const accessAddress = req.body.accessAddress;
   const filename = req.body.filename;
-  const str = await contract.methods
-    .giveAccessTo()
-    .call({ from: `${addr}`, _addr: `${accessAddress}`, _file: `${filename}` });
-
+  const str = await contract.methods.giveAccessTo(accessAddress, filename).send({ from: `${addr}` });
+  console.log(str);
   if (str === "Access Given") {
     res.status(200).json({
       status: "success",
@@ -93,9 +89,7 @@ exports.blockAccess = catchAsync(async (req, res, next) => {
   const { addr } = req.params;
   const accessAddress = req.body.accessAddress;
   const filename = req.body.filename;
-  const str = await contract.methods
-    .blockAccessOf()
-    .call({ from: `${addr}`, _addr: `${accessAddress}`, _file: `${filename}` });
+  const str = await contract.methods.blockAccessOf(accessAddress, filename).send({ from: `${addr}` });
 
   if (str === "Blocked") {
     res.status(200).json({
