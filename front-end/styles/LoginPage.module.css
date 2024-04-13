@@ -1,0 +1,107 @@
+.main {
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.conn_button {
+  display: flex;
+  padding-top: 5vh;
+  justify-content: center;
+}
+
+.container {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 5vh,5vw,5vh,5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: top;
+    min-width: 35vw;
+    min-height: 40vh;
+    border-radius: 3vh;
+  }
+  
+  .table_container {
+    display: table;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .button_row {
+    display: table-row;
+    padding: 5vh,5vw,5vh,5vw;
+    align-items: center;
+  }
+  
+  .button_cell {
+    display: table-cell;
+    vertical-align: middle;
+    align-items: center;
+    padding : 2.5vw;
+    padding-top : 3vh;
+    padding-bottom : 2vh;
+  }
+  
+  .form_row {
+    display: table-row;
+  }
+  
+  .form_cell {
+    display: table-cell;
+    padding: 7.5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+  }
+  
+  .toggle_buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .toggle_buttons button {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    width:100%;
+    height:6vh;
+    border-radius: 10vh;
+  }
+  
+  .active_button {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .form_group {
+    margin-bottom: 20px;
+  }
+  
+  .form_group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .form_group input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .form_group input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
