@@ -6,9 +6,9 @@ const contract = require("./../fetch");
 //this will be used to display the file
 exports.getFile = catchAsync(async (req, res, next) => {
   const { addr, filename } = req.params;
-  const show = await contract.methods
-    .displayFile()
-    .call({ _addr: `${addr}`, _file: `${filename}` });
+  // const show = await contract.methods
+  //   .displayFile()
+  //   .call({ _addr: `${addr}`, _file: `${filename}` });
   const user = await User.findOne({ address: addr });
   if (!user) {
     return AppError("you are not a registered user here", 404);
@@ -39,10 +39,10 @@ exports.createFile = catchAsync(async (req, res, next) => {
     size,
     owner: id,
   });
-  const result = await contract.methods
-    .uploadFile(name)
-    .call({ from: `${address}` });
-  console.log(result);
+  // const result = await contract.methods
+  //   .uploadFile(name)
+  //   .call({ from: `${address}` });
+  // console.log(result);
   //file transaction happened;
 
   if (fileUploaded) {
