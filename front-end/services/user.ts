@@ -1,9 +1,6 @@
 import axios from "axios";
 
-export const createuser = async (name:string, email:string , address:any) => {
-    // if (!validator.isEmail(email)) {
-    //   throw new Error('invalid email address');
-    // }
+export const createUser = async (name:string, email:string , address:any) => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/createUser`;
     const body = {
       name: name,
