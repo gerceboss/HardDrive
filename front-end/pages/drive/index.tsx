@@ -14,8 +14,6 @@ import { useStorageUpload } from "@thirdweb-dev/react";
 import { uploadFile, getAllFiles } from "../../services/file";
 import { Sidebar } from "../../components/Sidebar";
 import { giveAccess } from "../../services/file";
-import { FolderPopup } from "../../components/FolderPopup";
-import { FilePopup } from "../../components/FilePopup";
 
 interface Menu {
   label: string;
@@ -52,13 +50,7 @@ const DrivePage = () => {
       },
     });
     console.log(uploadURL);
-    const resFile = await uploadFile(
-      file.name,
-      "this is a file",
-      uploadURL[0],
-      file.size,
-      account_addr
-    );
+    const resFile = await uploadFile(file.name, "this is a file", uploadURL[0], file.size, account_addr);
     console.log(resFile);
     const allfileInfo = await getAllFiles(account_addr);
     setfileInfo(allfileInfo);
@@ -118,10 +110,7 @@ const DrivePage = () => {
 
   return (
     <>
-      <Sidebar
-        setdisplayFiles={setdisplayFiles}
-        setdisplayFolders={setdisplayFolders}
-      />
+      <Sidebar setdisplayFiles={setdisplayFiles} setdisplayFolders={setdisplayFolders} />
       <div className="NotSidebar">
         <Navbar />
         <div className="metamask">
@@ -138,20 +127,18 @@ const DrivePage = () => {
             </button>
           </div>
           {showForm ? (
-            <FolderPopup
-              setFolderName={setFolderName}
-              createFolder={createFolder}
-              folderName={folderName}
-              setShowForm={setShowForm}
-            />
+            <div>
+              <label>
+                Folder Name:
+                <input type="text" onChange={(e) => setFolderName(e.target.value)} />
+              </label>
+              <button onClick={createFolder}>submit</button>
+            </div>
           ) : null}
         </div>
         <div>
           <div className="upload">
-            <button
-              className="button-3"
-              onClick={() => setShowImgForm(!showImgForm)}
-            >
+            <button className="button-3" onClick={() => setShowImgForm(!showImgForm)}>
               Upload File
             </button>
           </div>
@@ -162,11 +149,7 @@ const DrivePage = () => {
                   <Link key={i} as={LinkNext} href={`/drive/${folder}`}>
                     <div className="folders">
                       {" "}
-                      <img
-                        src="folder.png"
-                        alt="Folder Icon"
-                        className="folderIcon"
-                      />
+                      <img src="folder.png" alt="Folder Icon" className="folderIcon" />
                       {folder}
                     </div>
                   </Link>
@@ -174,11 +157,17 @@ const DrivePage = () => {
             </div>
           ) : null}
           {showImgForm ? (
-            <FilePopup
-              setFile={setFile}
-              uploadToIpfs={uploadToIpfs}
-              setShowImgForm={setShowImgForm}
-            />
+            <div>
+              <input
+                type="file"
+                onChange={(e) => {
+                  if (e.target.files) {
+                    setFile(e.target.files[0]);
+                  }
+                }}
+              />
+              <button onClick={uploadToIpfs}>upload</button>
+            </div>
           ) : null}
         </div>
         {displayFiles ? (
@@ -202,12 +191,7 @@ const DrivePage = () => {
         ) : null}
         {showAccessForm && (
           <div className="accessForm">
-            <input
-              type="text"
-              placeholder="Enter address to give access"
-              value={accessAddress}
-              onChange={(e) => setAccessAddress(e.target.value)}
-            />
+            <input type="text" placeholder="Enter address to give access" value={accessAddress} onChange={(e) => setAccessAddress(e.target.value)} />
             <button onClick={handleGiveAccess}>Submit</button>
           </div>
         )}
