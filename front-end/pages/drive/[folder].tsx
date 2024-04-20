@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { getFoldersByFolder, createNewFolder } from "../../services/folder";
-import { getFilesByFolder,uploadFileInfolder } from "../../services/folder";
+import { getFilesByFolder, uploadFileInfolder } from "../../services/folder";
 import { useAccount } from "wagmi";
 import { useState, useEffect } from "react";
 import { Stack, Link } from "@chakra-ui/react";
@@ -37,8 +37,15 @@ const FolderPage = () => {
       },
     });
     console.log(uploadURL);
-    await uploadFileInfolder(parentFolderName,file.name, "this is a file", uploadURL[0], file.size, account_addr);
-    const allfileInfo = await getFilesByFolder(account_addr,parentFolderName);
+    await uploadFileInfolder(
+      parentFolderName,
+      file.name,
+      "this is a file",
+      uploadURL[0],
+      file.size,
+      account_addr
+    );
+    const allfileInfo = await getFilesByFolder(account_addr, parentFolderName);
     setfileInfo(allfileInfo);
     setShowImgForm(!showImgForm);
   };
@@ -64,7 +71,7 @@ const FolderPage = () => {
       setFolders(folders__);
     };
     const getF = async () => {
-      const files__ = await getFilesByFolder(account_addr,parentFolderName);
+      const files__ = await getFilesByFolder(account_addr, parentFolderName);
       setfileInfo(files__);
     };
     getfolders();
@@ -74,7 +81,6 @@ const FolderPage = () => {
   const goToProfilePage = () => {
     router.push("/profile");
   };
-
   return (
     <>
       <Sidebar
@@ -102,6 +108,15 @@ const FolderPage = () => {
               createFolder={createFolder}
               folderName={folderName}
               setShowForm={setShowForm}
+            />
+          ) : null}
+        </div>
+        <div>
+          {showImgForm ? (
+            <FilePopup
+              setFile={setFile}
+              uploadToIpfs={uploadToIpfs}
+              setShowImgForm={setShowImgForm}
             />
           ) : null}
         </div>

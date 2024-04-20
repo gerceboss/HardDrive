@@ -186,11 +186,11 @@ const DrivePage = () => {
             {fileInfo !== null &&
               fileInfo.map((fileHash, i) => (
                 <Link key={i} href={fileHash.ipfsHash}>
-                  <div className="fileContainer" onMouseEnter={() => handleMouseEnter(fileHash)} onMouseLeave={handleMouseLeave}>
-                    <div className="file">
+                  <div className="folders" onMouseEnter={() => handleMouseEnter(fileHash)} onMouseLeave={handleMouseLeave}>
+                    <div >
                       {fileHash.name}
                       {showAccessOption && selectedFile === fileHash && (
-                        <button className="accessButton" onClick={handleAccessOptionClick}>
+                        <button className="button-1" onClick={handleAccessOptionClick}>
                           Give Access
                         </button>
                       )}
