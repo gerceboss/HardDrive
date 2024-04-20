@@ -1,12 +1,6 @@
 import axios from "axios";
 
-export const uploadFile = async (
-  name: any,
-  description: any,
-  ipfsHash: any,
-  size: any,
-  address: any
-) => {
+export const uploadFile = async (name: any, description: any, ipfsHash: any, size: any, address: any) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/files/${address}/uploadFile`;
   try {
     const body = {
@@ -42,13 +36,7 @@ export const getAllFiles = async (address: any) => {
   }
 };
 
-
-
-export const giveAccess = async (
-  filename: any,
-  accessAddress: any,
-  address: any
-) => {
+export const giveAccess = async (filename: any, accessAddress: any, address: any) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/${address}/giveAccess`;
   try {
     const body = {
@@ -63,12 +51,7 @@ export const giveAccess = async (
   return "success access given";
 };
 
-
-export const blockAccess = async (
-  filename: any,
-  accessAddress: any,
-  address: any
-) => {
+export const blockAccess = async (filename: any, accessAddress: any, address: any) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/user/${address}/blockAccess`;
   try {
     const body = {

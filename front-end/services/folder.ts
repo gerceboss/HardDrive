@@ -62,14 +62,43 @@ export const getFilesByFolder = async (address: any, parentFolderName: any) => {
 
   try {
     let files = [];
+    
     const folders = await axios.get(url).then((res) => res.data?.data || null);
     for (let i in folders) {
       if (folders[i].name == parentFolderName) {
         files = folders[i].files;
       }
     }
+    console.log(files);
     return files;
   } catch (e) {
     return null;
   }
+};
+
+export const uploadFileInfolder = async (
+  parentFoldername:any,
+  name: any,
+  description: any,
+  ipfsHash: any,
+  size: any,
+  address: any
+) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/folder/${address}/updatefolder`;
+  const body = {
+    parentFoldername,
+    name,
+    description,
+    ipfsHash,
+    size,
+    address,
+  };
+  try {
+    
+    const { data } = await axios.patch(url, body);
+
+  } catch (e) {
+    return "failed";
+  }
+  return "success";
 };

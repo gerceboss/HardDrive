@@ -80,10 +80,10 @@ const DrivePage = () => {
       setSelectedFile(null);
       setShowAccessForm(false);
       setAccessAddress("");
-      alert("access de diiiii successfully!");
+      alert("access given successfully!");
     } catch (error) {
-      alert("Failed ni de payee access.");
-      console.error("error granting access:", error);
+      alert("Failed to give access.");
+      console.error("error granting access =", error);
     }
   };
 
@@ -170,16 +170,18 @@ const DrivePage = () => {
           <div className="folderContainer">
             {fileInfo !== null &&
               fileInfo.map((fileHash, i) => (
-                <div key={i} className="fileContainer" onMouseEnter={() => handleMouseEnter(fileHash)} onMouseLeave={handleMouseLeave}>
-                  <div className="file">
-                    {fileHash.name}
-                    {showAccessOption && selectedFile === fileHash && (
-                      <button className="accessButton" onClick={handleAccessOptionClick}>
-                        Give Access
-                      </button>
-                    )}
+                <Link key={i} href={fileHash.ipfsHash}>
+                  <div className="fileContainer" onMouseEnter={() => handleMouseEnter(fileHash)} onMouseLeave={handleMouseLeave}>
+                    <div className="file">
+                      {fileHash.name}
+                      {showAccessOption && selectedFile === fileHash && (
+                        <button className="accessButton" onClick={handleAccessOptionClick}>
+                          Give Access
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
           </div>
         ) : null}

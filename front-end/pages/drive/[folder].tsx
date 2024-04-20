@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import { getFoldersByFolder, createNewFolder } from "../../services/folder";
-import { getFilesByFolder } from "../../services/folder";
+import { getFilesByFolder,uploadFileInfolder } from "../../services/folder";
 import { useAccount } from "wagmi";
 import { useState, useEffect } from "react";
 import { Stack, Link } from "@chakra-ui/react";
+import { uploadFile, getAllFiles } from "../../services/file";
 import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import LinkNext from "next/link";
@@ -20,6 +21,7 @@ const FolderPage = () => {
   const[displayFolders,setdisplayFolders]=useState(true);
   const[displayFiles,setdisplayFiles]=useState(true);
   const [fileInfo, setfileInfo] = useState<any[] | null>([]);
+  const [showImgForm, setShowImgForm] = useState(false);
 
   const { mutateAsync: upload } = useStorageUpload();
 
@@ -32,6 +34,10 @@ const FolderPage = () => {
       },
     });
     console.log(uploadURL);
+    await uploadFileInfolder(parentFolderName,file.name, "this is a file", uploadURL[0], file.size, account_addr);
+    const allfileInfo = await getFilesByFolder(account_addr,parentFolderName);
+    setfileInfo(allfileInfo);
+    setShowImgForm(!showImgForm);
   };
 
   const createFolder = async () => {
@@ -51,12 +57,12 @@ const FolderPage = () => {
       const folders__ = await getFoldersByFolder(account_addr,parentFolderName);
       setFolders(folders__);
     };
-    const getFiles = async () => {
+    const getF = async () => {
       const files__ = await getFilesByFolder(account_addr,parentFolderName);
       setfileInfo(files__);
     };
     getfolders();
-    getFiles();
+    getF();
   }, []);
 
   const goToProfilePage = () => {
