@@ -148,7 +148,7 @@ a {
 
 .folders {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   padding: 10px;
   border-radius: 10px;
@@ -162,9 +162,85 @@ a {
   overflow: hidden;
   word-wrap: break-word; /* Allow text to wrap within the folder */
   border: 1px solid #180606; /* Add border for folder */
+  position: relative; /* Set position to relative */
 }
 
+.folderIcon {
+  width: 30px; /* Adjust width of the folder icon */
+  height: auto; /* Maintain aspect ratio */
+  position: flex;
+  margin-right: 10px; /* Add margin to the right to separate the icon from text */
+}
 .folders:hover {
-  background-color: #e0e0e0; /* Lighter background color on hover */
+  background-color: #ffffff; /* Lighter background color on hover */
   cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Drop shadow */
+}
+
+.popup h2 {
+  margin-top: 0;
+}
+
+.popup input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttons button:hover {
+  background-color: #f0f0f0; /* Light gray on hover */
+}
+
+.button-1 {
+  display: flex;
+  flex-direction: column;
+  margin-left: 4px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #131618;
+  color: #3f0303;
+  background-color: transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.button-1:hover {
+  background-color: #3f0303;
+  color: #ffffff;
 }
