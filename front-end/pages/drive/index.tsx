@@ -14,6 +14,8 @@ import { useStorageUpload } from "@thirdweb-dev/react";
 import { uploadFile, getAllFiles } from "../../services/file";
 import { Sidebar } from "../../components/Sidebar";
 import { giveAccess } from "../../services/file";
+import {FolderPopup} from "../../components/FolderPopup";
+import {FilePopup} from "../../components/FilePopup";
 
 interface Menu {
   label: string;
@@ -50,7 +52,13 @@ const DrivePage = () => {
       },
     });
     console.log(uploadURL);
-    const resFile = await uploadFile(file.name, "this is a file", uploadURL[0], file.size, account_addr);
+    const resFile = await uploadFile(
+      file.name,
+      "this is a file",
+      uploadURL[0],
+      file.size,
+      account_addr
+    );
     console.log(resFile);
     const allfileInfo = await getAllFiles(account_addr);
     setfileInfo(allfileInfo);
@@ -110,7 +118,10 @@ const DrivePage = () => {
 
   return (
     <>
-      <Sidebar setdisplayFiles={setdisplayFiles} setdisplayFolders={setdisplayFolders} />
+      <Sidebar
+        setdisplayFiles={setdisplayFiles}
+        setdisplayFolders={setdisplayFolders}
+      />
       <div className="NotSidebar">
         <Navbar />
         <div className="metamask">
@@ -127,18 +138,20 @@ const DrivePage = () => {
             </button>
           </div>
           {showForm ? (
-            <div>
-              <label>
-                Folder Name:
-                <input type="text" onChange={(e) => setFolderName(e.target.value)} />
-              </label>
-              <button onClick={createFolder}>submit</button>
-            </div>
+            <FolderPopup
+              setFolderName={setFolderName}
+              createFolder={createFolder}
+              folderName={folderName}
+              setShowForm={setShowForm}
+            />
           ) : null}
         </div>
         <div>
           <div className="upload">
-            <button className="button-3" onClick={() => setShowImgForm(!showImgForm)}>
+            <button
+              className="button-3"
+              onClick={() => setShowImgForm(!showImgForm)}
+            >
               Upload File
             </button>
           </div>
@@ -153,28 +166,29 @@ const DrivePage = () => {
             </div>
           ) : null}
           {showImgForm ? (
-            <div>
-              <input
-                type="file"
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setFile(e.target.files[0]);
-                  }
-                }}
-              />
-              <button onClick={uploadToIpfs}>upload</button>
-            </div>
+            <FilePopup
+            setFile={setFile}
+            uploadToIpfs={uploadToIpfs}
+            setShowImgForm={setShowImgForm}
+            />
           ) : null}
         </div>
         {displayFiles ? (
           <div className="folderContainer">
             {fileInfo !== null &&
               fileInfo.map((fileHash, i) => (
-                <div key={i} className="fileContainer" onMouseEnter={() => handleMouseEnter(fileHash)} onMouseLeave={handleMouseLeave}>
-                  <div className="file">
+                <div
+                  key={i}
+                  onMouseEnter={() => handleMouseEnter(fileHash)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div className="folders">
                     {fileHash.name}
                     {showAccessOption && selectedFile === fileHash && (
-                      <button className="accessButton" onClick={handleAccessOptionClick}>
+                      <button
+                        className="accessButton"
+                        onClick={handleAccessOptionClick}
+                      >
                         Give Access
                       </button>
                     )}
@@ -185,7 +199,12 @@ const DrivePage = () => {
         ) : null}
         {showAccessForm && (
           <div className="accessForm">
-            <input type="text" placeholder="Enter address to give access" value={accessAddress} onChange={(e) => setAccessAddress(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Enter address to give access"
+              value={accessAddress}
+              onChange={(e) => setAccessAddress(e.target.value)}
+            />
             <button onClick={handleGiveAccess}>Submit</button>
           </div>
         )}

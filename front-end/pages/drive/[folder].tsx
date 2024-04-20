@@ -8,6 +8,8 @@ import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import LinkNext from "next/link";
 import { useStorageUpload } from "@thirdweb-dev/react";
+import { FolderPopup } from "../../components/FolderPopup";
+import { FilePopup } from "../../components/FilePopup";
 
 const FolderPage = () => {
   const router = useRouter();
@@ -78,17 +80,13 @@ const FolderPage = () => {
           Create Folder
         </button>
         {showForm ? (
-          <div>
-            <label>
-              Folder Name:
-              <input
-                type="text"
-                onChange={(e) => setFolderName(e.target.value)}
-              />
-            </label>
-            <button onClick={createFolder}>submit</button>
-          </div>
-        ) : null}
+            <FolderPopup
+              setFolderName={setFolderName}
+              createFolder={createFolder}
+              folderName={folderName}
+              setShowForm={setShowForm}
+            />
+          ) : null}
       </div>
 
       {displayFolders ? 
