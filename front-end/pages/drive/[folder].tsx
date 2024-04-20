@@ -9,8 +9,8 @@ import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import LinkNext from "next/link";
 import { useStorageUpload } from "@thirdweb-dev/react";
-import { FolderPopup } from "../../components/FolderPopup";
 import { FilePopup } from "../../components/FilePopup";
+import { FolderPopup } from "../../components/FolderPopup";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const FolderPage = () => {
@@ -92,7 +92,14 @@ const FolderPage = () => {
         <div className="metamask">
           <ConnectButton />
         </div>
-
+        <div className="upload">
+          <button
+            className="button-3"
+            onClick={() => setShowImgForm(!showImgForm)}
+          >
+            Upload File
+          </button>
+        </div>
         <div>
           <button className="profileButton1" onClick={goToProfilePage}></button>
         </div>
@@ -129,8 +136,8 @@ const FolderPage = () => {
                   <div className="folders">
                     {" "}
                     <img
-                      src="folder.png"
-                      alt="Folder Icon"
+                      src="/folder.png"
+                      alt={"folderImg"}
                       className="folderIcon"
                     />
                     {folder}
@@ -146,8 +153,8 @@ const FolderPage = () => {
                 <Link key={i} as={LinkNext} href={fileHash.ipfsHash}>
                   <div className="folders">
                     <img
-                      src="file.png"
-                      alt="Folder Icon"
+                      src="/file.png"
+                      alt={"fileImg"}
                       className="folderIcon"
                     />
                     {fileHash.name}
