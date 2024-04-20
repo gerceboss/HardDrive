@@ -14,8 +14,8 @@ import { useStorageUpload } from "@thirdweb-dev/react";
 import { uploadFile, getAllFiles } from "../../services/file";
 import { Sidebar } from "../../components/Sidebar";
 import { giveAccess } from "../../services/file";
-import {FolderPopup} from "../../components/FolderPopup";
-import {FilePopup} from "../../components/FilePopup";
+import { FolderPopup } from "../../components/FolderPopup";
+import { FilePopup } from "../../components/FilePopup";
 
 interface Menu {
   label: string;
@@ -160,16 +160,24 @@ const DrivePage = () => {
               {folders !== null &&
                 folders.map((folder, i) => (
                   <Link key={i} as={LinkNext} href={`/drive/${folder}`}>
-                    <div className="folders">{folder}</div>
+                    <div className="folders">
+                      {" "}
+                      <img
+                        src="folder.png"
+                        alt="Folder Icon"
+                        className="folderIcon"
+                      />
+                      {folder}
+                    </div>
                   </Link>
                 ))}
             </div>
           ) : null}
           {showImgForm ? (
             <FilePopup
-            setFile={setFile}
-            uploadToIpfs={uploadToIpfs}
-            setShowImgForm={setShowImgForm}
+              setFile={setFile}
+              uploadToIpfs={uploadToIpfs}
+              setShowImgForm={setShowImgForm}
             />
           ) : null}
         </div>
@@ -183,10 +191,15 @@ const DrivePage = () => {
                   onMouseLeave={handleMouseLeave}
                 >
                   <div className="folders">
+                    <img
+                      src="file.png"
+                      alt="Folder Icon"
+                      className="folderIcon"
+                    />
                     {fileHash.name}
                     {showAccessOption && selectedFile === fileHash && (
                       <button
-                        className="accessButton"
+                        className="button-1"
                         onClick={handleAccessOptionClick}
                       >
                         Give Access

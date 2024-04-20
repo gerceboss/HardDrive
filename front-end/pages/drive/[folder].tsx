@@ -10,6 +10,7 @@ import LinkNext from "next/link";
 import { useStorageUpload } from "@thirdweb-dev/react";
 import { FolderPopup } from "../../components/FolderPopup";
 import { FilePopup } from "../../components/FilePopup";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const FolderPage = () => {
   const router = useRouter();
@@ -19,8 +20,8 @@ const FolderPage = () => {
   const [folderName, setFolderName] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [file, setFile] = useState<any>();
-  const[displayFolders,setdisplayFolders]=useState(true);
-  const[displayFiles,setdisplayFiles]=useState(true);
+  const [displayFolders, setdisplayFolders] = useState(true);
+  const [displayFiles, setdisplayFiles] = useState(true);
   const [fileInfo, setfileInfo] = useState<any[] | null>([]);
 
   const { mutateAsync: upload } = useStorageUpload();
@@ -50,11 +51,14 @@ const FolderPage = () => {
 
   useEffect(() => {
     const getfolders = async () => {
-      const folders__ = await getFoldersByFolder(account_addr,parentFolderName);
+      const folders__ = await getFoldersByFolder(
+        account_addr,
+        parentFolderName
+      );
       setFolders(folders__);
     };
     const getFiles = async () => {
-      const files__ = await getFilesByFolder(account_addr,parentFolderName);
+      const files__ = await getFilesByFolder(account_addr, parentFolderName);
       setfileInfo(files__);
     };
     getfolders();
@@ -62,24 +66,31 @@ const FolderPage = () => {
   }, []);
 
   const goToProfilePage = () => {
-    router.push('/profile');
+    router.push("/profile");
   };
-
 
   return (
     <>
-    <Sidebar setdisplayFiles={setdisplayFiles} setdisplayFolders={setdisplayFolders}/>
-    <div className="NotSidebar">
-    <Navbar />
-      <div>
-        <button
-          onClick={() => {
-            setShowForm(!showForm);
-          }}
-        >
-          Create Folder
-        </button>
-        {showForm ? (
+      <Sidebar
+        setdisplayFiles={setdisplayFiles}
+        setdisplayFolders={setdisplayFolders}
+      />
+      <div className="NotSidebar">
+        <Navbar />
+        <div className="metamask">
+          <ConnectButton />
+        </div>
+
+        <div>
+          <button className="profileButton1" onClick={goToProfilePage}></button>
+        </div>
+        <div>
+          <div className="createFolder">
+            <button className="button-3" onClick={() => setShowForm(!showForm)}>
+              Create Folder
+            </button>
+          </div>
+          {showForm ? (
             <FolderPopup
               setFolderName={setFolderName}
               createFolder={createFolder}
@@ -87,45 +98,43 @@ const FolderPage = () => {
               setShowForm={setShowForm}
             />
           ) : null}
-      </div>
+        </div>
 
-      {displayFolders ? 
-                <div className="folderContainer">
-                {folders !== null &&
-                  folders.map((folder, i) => (
-                    <Link key={i} as={LinkNext} href={`/drive/${folder}`}>
-                      <div className="folders">
-                        {folder}  
-                      </div> 
-                    </Link>
-                  ))}
-              </div>
-              : null
-        }
-      {displayFiles ?
-       <div className="folderContainer">
-        {fileInfo !== null &&
-           fileInfo.map((fileHash, i) => (
-              <Link 
-              key={i} as={LinkNext} href={fileHash.ipfsHash}>
-                <div className="folders">
-                {fileHash.name}
-                </div>
-              </Link>
-            ))}
-      </div> 
-          : null}
-      <div>
-        <input
-          type="file"
-          onChange={(e) => {
-            if (e.target.files) {
-              setFile(e.target.files[0]);
-            }
-          }}
-        />
-        <button onClick={uploadToIpfs}>upload</button>
-      </div>
+        {displayFolders ? (
+          <div className="folderContainer">
+            {folders !== null &&
+              folders.map((folder, i) => (
+                <Link key={i} as={LinkNext} href={`/drive/${folder}`}>
+                  <div className="folders">
+                    {" "}
+                    <img
+                      src="folder.png"
+                      alt="Folder Icon"
+                      className="folderIcon"
+                    />
+                    {folder}
+                  </div>
+                </Link>
+              ))}
+          </div>
+        ) : null}
+        {displayFiles ? (
+          <div className="folderContainer">
+            {fileInfo !== null &&
+              fileInfo.map((fileHash, i) => (
+                <Link key={i} as={LinkNext} href={fileHash.ipfsHash}>
+                  <div className="folders">
+                    <img
+                      src="file.png"
+                      alt="Folder Icon"
+                      className="folderIcon"
+                    />
+                    {fileHash.name}
+                  </div>
+                </Link>
+              ))}
+          </div>
+        ) : null}
       </div>
     </>
   );
