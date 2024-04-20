@@ -11,15 +11,15 @@ exports.getFile = catchAsync(async (req, res, next) => {
   //   .call({ _addr: `${addr}`, _file: `${filename}` });
   const user = await User.findOne({ address: addr });
   if (!user) {
-    return AppError("you are not a registered user here", 404);
+    return new AppError("you are not a registered user here", 404);
   }
   if (show) {
-    return AppError("You are not allowed to view the file", 404);
+    return new AppError("You are not allowed to view the file", 404);
   }
   const file = await File.findOne({ owner: user._id, name: filename });
   const fileHash = file.ipfsHash;
   if (!file) {
-    return AppError("no such file exists", 404);
+    return new AppError("no such file exists", 404);
   }
   res.status(200).json({
     status: "success",
@@ -51,6 +51,6 @@ exports.createFile = catchAsync(async (req, res, next) => {
       data: fileUploaded,
     });
   } else {
-    return AppError("file not uploaded", 404);
+    return new AppError("file not uploaded", 404);
   }
 });

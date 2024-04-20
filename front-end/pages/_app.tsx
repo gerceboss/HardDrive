@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={client}>
         <RainbowKitProvider>
           <ThirdwebProvider
-            activeChain={"mumbai"}
+            activeChain={97}
             clientId="cb2397504e2e55d5db11f18ca2c29f7a"
           >
             <Component {...pageProps} />

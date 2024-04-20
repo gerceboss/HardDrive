@@ -19,7 +19,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
       data: user,
     });
   } else {
-    return AppError("user not created", 404);
+    return new AppError("user not created", 404);
   }
 });
 exports.getUser = catchAsync(async (req, res, next) => {
@@ -39,7 +39,7 @@ exports.getAllFiles = catchAsync(async (req, res, next) => {
   const { addr } = req.params;
   const user = await User.findOne({ address: addr });
   if (!user) {
-    return AppError("No such user exists", 404);
+    return new AppError("No such user exists", 404);
   }
   //fetch the hashes from the on-chain contract
   // const fileHashesChain = await contract.methods.getMyFiles().call({ from: `${addr}` }); // get all the files user has access to
