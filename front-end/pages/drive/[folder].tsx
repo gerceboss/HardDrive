@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { getFoldersByFolder, createNewFolder } from "../../services/folder";
-import { getFilesByFolder,uploadFileInfolder } from "../../services/folder";
+import { getFilesByFolder, uploadFileInfolder } from "../../services/folder";
 import { useAccount } from "wagmi";
 import { useState, useEffect } from "react";
 import { Stack, Link } from "@chakra-ui/react";
@@ -9,8 +9,6 @@ import { Navbar } from "../../components/Navbar";
 import { Sidebar } from "../../components/Sidebar";
 import LinkNext from "next/link";
 import { useStorageUpload } from "@thirdweb-dev/react";
-import { FolderPopup } from "../../components/FolderPopup";
-import { FilePopup } from "../../components/FilePopup";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const FolderPage = () => {
@@ -37,18 +35,14 @@ const FolderPage = () => {
       },
     });
     console.log(uploadURL);
-    await uploadFileInfolder(parentFolderName,file.name, "this is a file", uploadURL[0], file.size, account_addr);
-    const allfileInfo = await getFilesByFolder(account_addr,parentFolderName);
+    await uploadFileInfolder(parentFolderName, file.name, "this is a file", uploadURL[0], file.size, account_addr);
+    const allfileInfo = await getFilesByFolder(account_addr, parentFolderName);
     setfileInfo(allfileInfo);
     setShowImgForm(!showImgForm);
   };
 
   const createFolder = async () => {
-    const status = await createNewFolder(
-      account_addr,
-      folderName,
-      parentFolderName
-    );
+    const status = await createNewFolder(account_addr, folderName, parentFolderName);
     const newFolders = await getFoldersByFolder(account_addr, parentFolderName);
     console.log(newFolders);
     setShowForm(!showForm);
@@ -57,14 +51,11 @@ const FolderPage = () => {
 
   useEffect(() => {
     const getfolders = async () => {
-      const folders__ = await getFoldersByFolder(
-        account_addr,
-        parentFolderName
-      );
+      const folders__ = await getFoldersByFolder(account_addr, parentFolderName);
       setFolders(folders__);
     };
     const getF = async () => {
-      const files__ = await getFilesByFolder(account_addr,parentFolderName);
+      const files__ = await getFilesByFolder(account_addr, parentFolderName);
       setfileInfo(files__);
     };
     getfolders();
@@ -77,10 +68,7 @@ const FolderPage = () => {
 
   return (
     <>
-      <Sidebar
-        setdisplayFiles={setdisplayFiles}
-        setdisplayFolders={setdisplayFolders}
-      />
+      <Sidebar setdisplayFiles={setdisplayFiles} setdisplayFolders={setdisplayFolders} />
       <div className="NotSidebar">
         <Navbar />
         <div className="metamask">
@@ -97,13 +85,19 @@ const FolderPage = () => {
             </button>
           </div>
           {showForm ? (
-            <FolderPopup
-              setFolderName={setFolderName}
-              createFolder={createFolder}
-              folderName={folderName}
-              setShowForm={setShowForm}
-            />
+            <div>
+              <label>
+                Folder Name:
+                <input type="text" onChange={(e) => setFolderName(e.target.value)} />
+              </label>
+              <button onClick={createFolder}>submit</button>
+            </div>
           ) : null}
+        </div>
+        <div className="upload">
+          <button className="button-3" onClick={() => setShowImgForm(!showImgForm)}>
+            Upload File
+          </button>
         </div>
 
         {displayFolders ? (
@@ -113,15 +107,24 @@ const FolderPage = () => {
                 <Link key={i} as={LinkNext} href={`/drive/${folder}`}>
                   <div className="folders">
                     {" "}
-                    <img
-                      src="folder.png"
-                      alt="Folder Icon"
-                      className="folderIcon"
-                    />
+                    <img src="folder.png" alt="Folder Icon" className="folderIcon" />
                     {folder}
                   </div>
                 </Link>
               ))}
+          </div>
+        ) : null}
+        {showImgForm ? (
+          <div>
+            <input
+              type="file"
+              onChange={(e) => {
+                if (e.target.files) {
+                  setFile(e.target.files[0]);
+                }
+              }}
+            />
+            <button onClick={uploadToIpfs}>upload</button>
           </div>
         ) : null}
         {displayFiles ? (
@@ -130,11 +133,7 @@ const FolderPage = () => {
               fileInfo.map((fileHash, i) => (
                 <Link key={i} as={LinkNext} href={fileHash.ipfsHash}>
                   <div className="folders">
-                    <img
-                      src="file.png"
-                      alt="Folder Icon"
-                      className="folderIcon"
-                    />
+                    <img src="file.png" alt="Folder Icon" className="folderIcon" />
                     {fileHash.name}
                   </div>
                 </Link>
