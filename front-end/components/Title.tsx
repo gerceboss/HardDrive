@@ -1,4 +1,4 @@
-import { HStack, Text, chakra } from "@chakra-ui/react";
+import { HStack, Img, Text, chakra } from "@chakra-ui/react";
 import Link from "next/link";
 
 export const Title = () => {
@@ -16,6 +16,7 @@ export const Title = () => {
       >
         <chakra.span color="primary.400">Cloudi</chakra.span>Fi
       </Text>
+      <img src="Title.png" className="TitleImg"/>
     </HStack>
   );
 };

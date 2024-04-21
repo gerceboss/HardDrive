@@ -150,7 +150,7 @@ const DrivePage = () => {
                   <Link key={i} as={LinkNext} href={`/drive/${folder}`}>
                     <div className="folders">
                       {" "}
-                      <img src="folder.png" alt="Folder Icon" className="folderIcon" />
+                      <img src="/folder.png" alt="Folder Icon" className="folderIcon" />
                       {folder}
                     </div>
                   </Link>
@@ -172,7 +172,7 @@ const DrivePage = () => {
                 <Link key={i} href={fileHash.ipfsHash}>
                   <div onMouseEnter={() => handleMouseEnter(fileHash)} onMouseLeave={handleMouseLeave}>
                     <div className="folders" >
-                    <img src="file.png" alt="Folder Icon" className="folderIcon" />
+                    <img src="/file.png" alt="Folder Icon" className="folderIcon" />
                       {fileHash.name}
                       {showAccessOption && selectedFile === fileHash && (
                         <button className="button-1" onClick={handleAccessOptionClick}>
@@ -188,7 +188,7 @@ const DrivePage = () => {
         {showAccessForm && (
           <div className="accessForm">
             <input type="text" placeholder="Enter address to give access" value={accessAddress} onChange={(e) => setAccessAddress(e.target.value)} />
-            <button onClick={handleGiveAccess}>Submit</button>
+            <button onClick={handleGiveAccess} className="button-3">Submit</button>
           </div>
         )}
       </div>
