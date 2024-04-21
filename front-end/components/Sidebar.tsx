@@ -3,7 +3,7 @@ import { Title } from "./Title";
 import { useRouter } from "next/router";
 
 
-export const Sidebar = (props) =>{
+export const Sidebar = (props : any) =>{
   const router = useRouter();
 
   const goToDrivePage = () => {
