@@ -132,8 +132,8 @@ const FolderPage = () => {
             {fileInfo !== null &&
               fileInfo.map((fileHash, i) => (
                 <Link key={i} as={LinkNext} href={fileHash.ipfsHash}>
-                  <div className="folders">
-                    <img src="file.png" alt="Folder Icon" className="folderIcon" />
+                  <div className="file">
+                    {/* <img src="file.png" alt="File Icon" className="folderIcon" /> */}
                     {fileHash.name}
                   </div>
                 </Link>

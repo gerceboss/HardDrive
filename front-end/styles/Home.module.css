@@ -104,3 +104,8 @@
     flex-direction: column;
   }
 }
+
+button.link {
+  background: none;
+  border: none;
+}

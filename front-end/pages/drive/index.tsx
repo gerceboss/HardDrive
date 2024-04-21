@@ -14,6 +14,7 @@ import { useStorageUpload } from "@thirdweb-dev/react";
 import { uploadFile, getAllFiles } from "../../services/file";
 import { Sidebar } from "../../components/Sidebar";
 import { giveAccess } from "../../services/file";
+import { redirect } from "next/navigation";
 
 interface Menu {
   label: string;
@@ -42,6 +43,14 @@ const DrivePage = () => {
   const { mutateAsync: upload } = useStorageUpload();
 
   const uploadToIpfs = async () => {
+    const message = "encyption-key-";
+    const from = account_addr;
+    const msg = `0x${Buffer.from(message, "utf8").toString("hex")}`;
+    const sign = await window.ethereum.request({
+      method: "personal_sign",
+      params: [msg, from],
+    });
+    const key = sign.toString();
     const uploadURL = await upload({
       data: [file],
       options: {
@@ -50,7 +59,13 @@ const DrivePage = () => {
       },
     });
     console.log(uploadURL);
-    const resFile = await uploadFile(file.name, "this is a file", uploadURL[0], file.size, account_addr);
+    const resFile = await uploadFile(
+      file.name,
+      "this is a file",
+      uploadURL[0],
+      file.size,
+      account_addr
+    );
     console.log(resFile);
     const allfileInfo = await getAllFiles(account_addr);
     setfileInfo(allfileInfo);
@@ -91,6 +106,19 @@ const DrivePage = () => {
     setShowAccessForm(true);
   };
 
+  const handleFileAccess = async (file_hash: string) => {
+    const message = "encyption-key-";
+    const from = account_addr;
+    const msg = `0x${Buffer.from(message, "utf8").toString("hex")}`;
+    const sign = await window.ethereum.request({
+      method: "personal_sign",
+      params: [msg, from],
+    });
+    const key = sign.toString();
+    console.log(file_hash);
+    router.push(file_hash);
+  };
+
   useEffect(() => {
     const getfolders = async () => {
       const folders__ = await getAllFolders(account_addr);
@@ -110,7 +138,10 @@ const DrivePage = () => {
 
   return (
     <>
-      <Sidebar setdisplayFiles={setdisplayFiles} setdisplayFolders={setdisplayFolders} />
+      <Sidebar
+        setdisplayFiles={setdisplayFiles}
+        setdisplayFolders={setdisplayFolders}
+      />
       <div className="NotSidebar">
         <Navbar />
         <div className="metamask">
@@ -130,7 +161,10 @@ const DrivePage = () => {
             <div>
               <label>
                 Folder Name:
-                <input type="text" onChange={(e) => setFolderName(e.target.value)} />
+                <input
+                  type="text"
+                  onChange={(e) => setFolderName(e.target.value)}
+                />
               </label>
               <button onClick={createFolder}>submit</button>
             </div>
@@ -138,7 +172,10 @@ const DrivePage = () => {
         </div>
         <div>
           <div className="upload">
-            <button className="button-3" onClick={() => setShowImgForm(!showImgForm)}>
+            <button
+              className="button-3"
+              onClick={() => setShowImgForm(!showImgForm)}
+            >
               Upload File
             </button>
           </div>
@@ -149,7 +186,11 @@ const DrivePage = () => {
                   <Link key={i} as={LinkNext} href={`/drive/${folder}`}>
                     <div className="folders">
                       {" "}
-                      <img src="folder.png" alt="Folder Icon" className="folderIcon" />
+                      <img
+                        src="folder.png"
+                        alt="Folder Icon"
+                        className="folderIcon"
+                      />
                       {folder}
                     </div>
                   </Link>
@@ -174,24 +215,39 @@ const DrivePage = () => {
           <div className="folderContainer">
             {fileInfo !== null &&
               fileInfo.map((fileHash, i) => (
-                <Link key={i} href={fileHash.ipfsHash}>
-                  <div className="fileContainer" onMouseEnter={() => handleMouseEnter(fileHash)} onMouseLeave={handleMouseLeave}>
+                <button
+                  className="link"
+                  onClick={() => handleFileAccess(fileHash.ipfsHash)}
+                >
+                  <div
+                    className="fileContainer"
+                    onMouseEnter={() => handleMouseEnter(fileHash)}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <div className="file">
                       {fileHash.name}
                       {showAccessOption && selectedFile === fileHash && (
-                        <button className="accessButton" onClick={handleAccessOptionClick}>
+                        <button
+                          className="accessButton"
+                          onClick={handleAccessOptionClick}
+                        >
                           Give Access
                         </button>
                       )}
                     </div>
                   </div>
-                </Link>
+                </button>
               ))}
           </div>
         ) : null}
         {showAccessForm && (
           <div className="accessForm">
-            <input type="text" placeholder="Enter address to give access" value={accessAddress} onChange={(e) => setAccessAddress(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Enter address to give access"
+              value={accessAddress}
+              onChange={(e) => setAccessAddress(e.target.value)}
+            />
             <button onClick={handleGiveAccess}>Submit</button>
           </div>
         )}
