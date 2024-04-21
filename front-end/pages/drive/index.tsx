@@ -14,7 +14,10 @@ import { useStorageUpload } from "@thirdweb-dev/react";
 import { uploadFile, getAllFiles } from "../../services/file";
 import { Sidebar } from "../../components/Sidebar";
 import { giveAccess } from "../../services/file";
+import {FilePopup} from "../../components/FilePopup";
+import {FolderPopup} from "../../components/FolderPopup";
 import { redirect } from "next/navigation";
+
 
 interface Menu {
   label: string;
@@ -158,16 +161,12 @@ const DrivePage = () => {
             </button>
           </div>
           {showForm ? (
-            <div>
-              <label>
-                Folder Name:
-                <input
-                  type="text"
-                  onChange={(e) => setFolderName(e.target.value)}
-                />
-              </label>
-              <button onClick={createFolder}>submit</button>
-            </div>
+            <FolderPopup
+              setFolderName={setFolderName}
+              createFolder={createFolder}
+              folderName={folderName}
+              setShowForm={setShowForm}
+            />
           ) : null}
         </div>
         <div>
@@ -198,17 +197,11 @@ const DrivePage = () => {
             </div>
           ) : null}
           {showImgForm ? (
-            <div>
-              <input
-                type="file"
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setFile(e.target.files[0]);
-                  }
-                }}
-              />
-              <button onClick={uploadToIpfs}>upload</button>
-            </div>
+            <FilePopup
+              setFile={setFile}
+              uploadToIpfs={uploadToIpfs}
+              setShowImgForm={setShowImgForm}
+            />
           ) : null}
         </div>
         {displayFiles ? (

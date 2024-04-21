@@ -244,3 +244,10 @@ a {
   background-color: #3f0303;
   color: #ffffff;
 }
+
+.TitleImg {
+  width: 50%; /* Adjust width of the folder icon */
+  height: auto; /* Maintain aspect ratio */
+  position: flex;
+  margin-right: 10px; /* Add margin to the right to separate the icon from text */
+}
