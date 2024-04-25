@@ -5,7 +5,7 @@ export const Title = () => {
   return (
     <HStack as={Link} href="/" spacing={1} align="center">
       <Text
-      color="tan"
+        color="tan"
         fontSize="xx-large"
         fontWeight="extrabold"
         textAlign={{
@@ -16,7 +16,7 @@ export const Title = () => {
       >
         <chakra.span color="primary.400">Cloudi</chakra.span>Fi
       </Text>
-      <img src="Title.png" className="TitleImg"/>
+      <img src="/Title.png" className="TitleImg" />
     </HStack>
   );
 };

@@ -207,15 +207,19 @@ const FolderPage = () => {
                   onClick={() => handleFileAccess(fileHash.ipfsHash)}
                 >
                   <div
-                    className="fileContainer"
                     onMouseEnter={() => handleMouseEnter(fileHash)}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <div className="file">
+                    <div className="folders">
+                      <img
+                        src="/file.png"
+                        alt={"folderImg"}
+                        className="folderIcon"
+                      />
                       {fileHash.name}
                       {showAccessOption && selectedFile === fileHash && (
                         <button
-                          className="accessButton"
+                          className="button-1"
                           onClick={handleAccessOptionClick}
                         >
                           Give Access

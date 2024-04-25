@@ -14,10 +14,9 @@ import { useStorageUpload } from "@thirdweb-dev/react";
 import { uploadFile, getAllFiles } from "../../services/file";
 import { Sidebar } from "../../components/Sidebar";
 import { giveAccess } from "../../services/file";
-import {FilePopup} from "../../components/FilePopup";
-import {FolderPopup} from "../../components/FolderPopup";
+import { FilePopup } from "../../components/FilePopup";
+import { FolderPopup } from "../../components/FolderPopup";
 import { redirect } from "next/navigation";
-
 
 interface Menu {
   label: string;
@@ -213,15 +212,19 @@ const DrivePage = () => {
                   onClick={() => handleFileAccess(fileHash.ipfsHash)}
                 >
                   <div
-                    className="fileContainer"
                     onMouseEnter={() => handleMouseEnter(fileHash)}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <div className="file">
+                    <div className="folders">
+                      <img
+                        src="/file.png"
+                        alt="Folder Icon"
+                        className="folderIcon"
+                      />
                       {fileHash.name}
                       {showAccessOption && selectedFile === fileHash && (
                         <button
-                          className="accessButton"
+                          className="button-1"
                           onClick={handleAccessOptionClick}
                         >
                           Give Access
